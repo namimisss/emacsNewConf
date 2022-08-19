@@ -1,6 +1,17 @@
+;; basic confi
+;; Code indentation
+;; https://xhcoding.cn/post/20211222180104-emacs%E7%BC%A9%E8%BF%9B%E8%AE%BE%E7%BD%AE/
+(add-to-list 'c-default-style '(c++-mode . "k&r"))
+(add-to-list 'c-default-style '(c-mode . "k&r"))
 
-
-
+;; ivy
+(ivy-mode)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+;; enable this if you want `swiper' to use it
+;; (setq search-default-mode #'char-fold-to-regexp)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
 
 ;; eglot
 ;;(add-to-list 'eglot-server-programs '(cc-mode . ("ccls")))
