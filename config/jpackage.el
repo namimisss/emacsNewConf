@@ -132,8 +132,6 @@
 (use-package modern-cpp-font-lock
   :ensure t
   :diminish nil
-  :hook
-  (c++-mode . modern-cpp-font-lock-mode)
   :config
   (add-to-list 'modern-c++-attributes "deprecated")
   (setq modern-c++-literal-boolean t)
