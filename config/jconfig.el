@@ -19,7 +19,12 @@
 (add-to-list 'eglot-server-programs '(c++-mode . ("ccls")))
 (add-hook 'c++-mode-hook 'eglot-ensure)
 (add-hook 'c-mode-hook 'eglot-ensure)
-;;(add-hook 'c++mode-hook 'cc-mode)
+(defun projectile-project-find-function (dir)
+  (let* ((root (projectile-project-root dir)))
+    (and root (cons 'transient root))))
+
+(with-eval-after-load 'project
+  (add-to-list 'project-find-functions 'projectile-project-find-function))
 
 ;; lang/cc
 ;; cmake-mode
