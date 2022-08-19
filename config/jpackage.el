@@ -13,6 +13,11 @@
 ;; basic
 (use-package magit
   :ensure t)
+(use-package auto-highlight-symbol
+  :ensure t
+  :config
+  (global-auto-highlight-symbol-mode))
+
 
 ;; complete
 ;; ;; complet/company
@@ -125,7 +130,17 @@
   :ensure t)
 ;; DONE
 (use-package modern-cpp-font-lock
-  :ensure t)
+  :ensure t
+  :diminish nil
+  :hook
+  (c++-mode . modern-cpp-font-lock-mode)
+  :config
+  (add-to-list 'modern-c++-attributes "deprecated")
+  (setq modern-c++-literal-boolean t)
+  (setq modern-c++-literal-string t)
+  (setq modern-c++-literal-integer t)
+  (setq modern-c++-literal-null-pointer t)
+  (setq modern-c++-stl-cstdint t))
 ;; DONE
 (use-package irony
   :ensure)
@@ -145,6 +160,8 @@
 (use-package helm-rtags
   :ensure t)
 (use-package rainbow-delimiters
+  :ensure t)
+(use-package neotree
   :ensure t)
 
 
