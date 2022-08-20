@@ -31,8 +31,7 @@
   :ensure t)
 (use-package ido
   :config
-  (ido-mode 1)
-  )
+  (ido-mode 1))
 (use-package ido-vertical-mode
   :config
   (ido-vertical-mode 1)
@@ -48,13 +47,36 @@
   (set-face-attribute 'ido-vertical-match-face nil
                       :foreground nil))
 
-
 (use-package undo-tree
   :ensure t
   :diminish nil
   :config
   (global-undo-tree-mode)
   (setq undo-tree-auto-save-history t))
+
+(use-package marginalia
+  ;; The :init configuration is always executed (Not lazy!)
+  :init
+  ;; Must be in the :init section of use-package such that the mode gets
+  ;; enabled right away. Note that this forces loading the package.
+  (marginalia-mode))
+(use-package avy
+  :ensure t)
+(use-package multiple-cursors
+  :ensure t
+;;  :config
+;;  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+;;  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+;;  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;;  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  )
+
+
+
+
+
+
+
 ;; basic/theme
 ;;(use-package solarized-theme
 ;;  :ensure t
@@ -170,6 +192,17 @@
   (setq projectile-enable-caching t)
   (setq-default projectile-mode-line-prefix "Proj")
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
+ (use-package dashboard
+  :ensure t
+  :config
+  (setq dashboard-banner-logo-title "Welcome to Emacs!") ;; 个性签名，随读者喜好设置
+  (setq dashboard-projects-backend 'projectile) ;; 读者可以暂时注释掉这一行，等安装了 projectile 后再使用
+  (setq dashboard-startup-banner 1) ;; 也可以自定义图片
+  (setq dashboard-items '((recents  . 5)   ;; 显示多少个最近文件
+			  (bookmarks . 5)  ;; 显示多少个最近书签
+			  (projects . 10))) ;; 显示多少个最近项目
+  (dashboard-setup-startup-hook))
 
 (use-package neotree
   :config

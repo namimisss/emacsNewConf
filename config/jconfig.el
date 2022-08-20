@@ -16,6 +16,13 @@
 (global-set-key "\C-s" 'swiper-isearch)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
+;; multiple-cursors
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+
 ;; eglot
 ;;(add-to-list 'eglot-server-programs '(cc-mode . ("ccls")))
 ;;(add-to-list 'eglot-server-programs `(cc-mode . ("ccls")))

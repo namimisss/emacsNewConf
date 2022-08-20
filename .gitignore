@@ -10,3 +10,5 @@ projects
 *.~undo-tree~
 projectile-bookmarks.eld
 projectile.cache
+ido.last
+
