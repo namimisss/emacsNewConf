@@ -7,6 +7,12 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-cmake))
+
+;; powerline
+;;(require 'powerline)
+;;(powerline-default-theme)
+;;(require 'powerline-evil)
+
 ;; ivy
 (ivy-mode)
 (setq ivy-use-virtual-buffers t)
