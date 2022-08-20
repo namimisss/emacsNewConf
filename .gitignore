@@ -5,3 +5,8 @@ auto-save-list
 recentf
 irony
 projects
+
+
+*.~undo-tree~
+projectile-bookmarks.eld
+projectile.cache

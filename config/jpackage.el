@@ -17,6 +17,57 @@
   :ensure t
   :config
   (global-auto-highlight-symbol-mode))
+(use-package which-key
+  :ensure t
+  :diminish which-key-mode
+  :config
+  (which-key-mode))
+(use-package ace-window
+  :ensure t
+  :bind ("C-x o" . ace-window))
+(use-package recentf
+  :ensure t)
+(use-package ag
+  :ensure t)
+(use-package ido
+  :config
+  (ido-mode 1)
+  )
+(use-package ido-vertical-mode
+  :config
+  (ido-vertical-mode 1)
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+  (setq ido-vertical-show-count t)
+  (setq ido-use-faces t)
+  (set-face-attribute 'ido-vertical-first-match-face nil
+                      :background nil
+                      :foreground "orange")
+  (set-face-attribute 'ido-vertical-only-match-face nil
+                      :background nil
+                      :foreground nil)
+  (set-face-attribute 'ido-vertical-match-face nil
+                      :foreground nil))
+
+
+(use-package undo-tree
+  :ensure t
+  :diminish nil
+  :config
+  (global-undo-tree-mode)
+  (setq undo-tree-auto-save-history t))
+;; basic/theme
+;;(use-package solarized-theme
+;;  :ensure t
+;;  :init (load-theme 'solarized-light t))
+(use-package all-the-icons
+  :ensure t)
+(use-package doom-modeline
+  :ensure t
+  :hook
+  (after-init . doom-modeline-mode)
+  :config
+  (setq doom-modeline-project-detection 'project))
+
 
 
 ;; complete
@@ -32,8 +83,6 @@
 (use-package ido-completing-read+
   :ensure t)
 (use-package ido-sort-mtime
-  :ensure t)
-(use-package ido-vertical-mode
   :ensure t)
 (use-package crm-custom
   :ensure t)
@@ -115,7 +164,32 @@
 (use-package consult-lsp
   :ensure t )
 (use-package projectile
-  :ensure t)
+  :ensure t
+  :config
+  (projectile-mode +1)
+  (setq projectile-enable-caching t)
+  (setq-default projectile-mode-line-prefix "Proj")
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
+(use-package neotree
+  :config
+  ;; f8 to view tree strucure of folder
+  (defun neotree-project-dir ()
+    "Open NeoTree using the git root."
+    (interactive)
+    (let ((project-dir (projectile-project-root))
+          (file-name (buffer-file-name)))
+      (neotree-toggle)
+      (if project-dir
+          (if (neo-global--window-exists-p)
+              (progn
+                (neotree-dir project-dir)
+                (neotree-find file-name)))
+        (message "Could not find git project root."))))
+  (global-set-key [f8] 'neotree-project-dir)
+  ;; switch with projectile
+  (use-package projectile)
+  (setq projectile-switch-project-action 'neotree-projectile-action))
 
 ;; lang
 ;; ;; cc

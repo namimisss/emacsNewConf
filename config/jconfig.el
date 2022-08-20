@@ -5,6 +5,8 @@
 (add-to-list 'c-default-style '(c-mode . "k&r"))
 ;; company
 (add-hook 'after-init-hook 'global-company-mode)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-cmake))
 ;; ivy
 (ivy-mode)
 (setq ivy-use-virtual-buffers t)
