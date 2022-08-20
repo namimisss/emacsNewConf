@@ -3,7 +3,8 @@
 ;; https://xhcoding.cn/post/20211222180104-emacs%E7%BC%A9%E8%BF%9B%E8%AE%BE%E7%BD%AE/
 (add-to-list 'c-default-style '(c++-mode . "k&r"))
 (add-to-list 'c-default-style '(c-mode . "k&r"))
-
+;; company
+(add-hook 'after-init-hook 'global-company-mode)
 ;; ivy
 (ivy-mode)
 (setq ivy-use-virtual-buffers t)
@@ -43,7 +44,6 @@
   '(add-to-list
     'company-backends '(company-irony-c-headers company-irony)))
 (defun j-cc-mode-hook-func()
-  (company-mode)
   (rainbow-delimiters-mode)
   (demangle-mode)
   (modern-c++-font-lock-mode)
