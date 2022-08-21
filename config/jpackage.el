@@ -13,6 +13,10 @@
 ;; basic
 (use-package magit
   :ensure t)
+(use-package diff-hl
+  :ensure t
+  :config
+  (global-diff-hl-mode))
 (use-package auto-highlight-symbol
   :ensure t
 ;;  :config
@@ -34,6 +38,7 @@
   :config
   (ido-mode 1))
 (use-package ido-vertical-mode
+  :ensure t
   :config
   (ido-vertical-mode 1)
   (setq ido-vertical-define-keys 'C-n-and-C-p-only)
@@ -48,13 +53,13 @@
   (set-face-attribute 'ido-vertical-match-face nil
                       :foreground nil))
 
-(use-package undo-tree
-  :ensure t
-  :diminish nil
-  :config
-  (global-undo-tree-mode)
+;;(use-package undo-tree
+;;  :ensure t
+;;  :diminish nil
+;;  :config
+;;  (global-undo-tree-mode)
 ;;  (setq undo-tree-auto-save-history t)
-  )
+;;  )
 
 (use-package marginalia
   ;; The :init configuration is always executed (Not lazy!)
