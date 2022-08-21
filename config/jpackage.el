@@ -15,8 +15,9 @@
   :ensure t)
 (use-package auto-highlight-symbol
   :ensure t
-  :config
-  (global-auto-highlight-symbol-mode))
+;;  :config
+;;  (global-auto-highlight-symbol-mode)
+  )
 (use-package which-key
   :ensure t
   :diminish which-key-mode
@@ -52,7 +53,8 @@
   :diminish nil
   :config
   (global-undo-tree-mode)
-  (setq undo-tree-auto-save-history t))
+;;  (setq undo-tree-auto-save-history t)
+  )
 
 (use-package marginalia
   ;; The :init configuration is always executed (Not lazy!)
