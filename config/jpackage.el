@@ -87,7 +87,11 @@
 ;; basic/theme
 (use-package solarized-theme
   :ensure t
-  :init (load-theme 'solarized-light t))
+  ;;  :init (load-theme 'solarized-dark t)
+  )
+(use-package darkokai-theme
+  :ensure t
+  :init (load-theme 'darkokai t))
 (use-package all-the-icons
   :ensure t)
 (use-package doom-modeline

@@ -33,6 +33,7 @@
 ;;(add-to-list 'eglot-server-programs '(cc-mode . ("ccls")))
 ;;(add-to-list 'eglot-server-programs `(cc-mode . ("ccls")))
 (add-to-list 'eglot-server-programs '(c++-mode . ("ccls")))
+(add-to-list 'eglot-server-programs '(c-mode . ("ccls")))
 (add-hook 'c++-mode-hook 'eglot-ensure)
 (add-hook 'c-mode-hook 'eglot-ensure)
 (defun projectile-project-find-function (dir)
@@ -76,6 +77,7 @@
 
 (add-hook 'c++-mode-hook #'j-cc-mode-hook-func)
 (add-hook 'c++-mode-hook #'j-cc-fontify-constants-h)
-
+(add-hook 'c-mode-hook #'j-cc-mode-hook-func)
+(add-hook 'c-mode-hook #'j-cc-fontify-constants-h)
 
 (provide 'jconfig)
