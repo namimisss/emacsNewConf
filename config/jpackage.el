@@ -13,6 +13,8 @@
 ;; basic
 (use-package magit
   :ensure t)
+(use-package flycheck
+  :ensure t)
 (use-package diff-hl
   :ensure t
   :config
@@ -284,6 +286,22 @@
 (use-package neotree
   :ensure t)
 
+
+;; lang/python
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (elpy-enable)
+  :hook
+  (elpy-mode . flycheck-mode)
+  :config
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
+
+(use-package py-autopep8
+  :ensure t
+  :hook
+  (elpy-mode . py-autopep8-enable-on-save))
 
 
 (provide 'jpackage)
