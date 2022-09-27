@@ -10,7 +10,7 @@
 ;; set global line minor mode
 (global-linum-mode 1)
 ;; set global highlight line minor mode
-;;(global-hl-line-mode 1)
+(global-hl-line-mode 1)
 
 (column-number-mode t)
 (show-paren-mode t)
