@@ -6,7 +6,8 @@ recentf
 irony
 projects
 
-
+.dap-breakpoints
+.lsp-session-v1
 *.~undo-tree~
 projectile-bookmarks.eld
 projectile.cache
