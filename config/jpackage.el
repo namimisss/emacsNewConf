@@ -10,6 +10,12 @@
   (package-refresh-contents)
   (mapc #'package-install package-selected-packages))
 
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+(use-package exec-path-from-shell :ensure t)
+(exec-path-from-shell-initialize)
+
 ;; basic
 (use-package magit
   :ensure t)
@@ -26,9 +32,11 @@
   )
 (use-package which-key
   :ensure t
+  :defer 0
   :diminish which-key-mode
   :config
-  (which-key-mode))
+  (which-key-mode)
+  (setq which-key-idle-delay 1))
 (use-package ace-window
   :ensure t
   :bind ("C-x o" . ace-window))
@@ -80,6 +88,17 @@
 ;;  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
   )
 
+(use-package helpful
+  :commands (helpful-callable helpful-variable helpful-command helpful-key)
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
 
 
 
@@ -98,6 +117,7 @@
   :ensure t)
 (use-package doom-modeline
   :ensure t
+  :init (doom-modeline-mode 1)
   :hook
   (after-init . doom-modeline-mode)
   :config
@@ -130,25 +150,77 @@
 (use-package swiper
   :ensure t)
 (use-package ivy
-  :ensure t)
+  :ensure t
+  :diminish
+  :bind (("C-s" . swiper)
+	 :map ivy-minibuffer-map
+	 ("TAB" . ivy-alt-done)
+	 ("C-l" . ivy-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+;;  (global-set-key (kbd "<f6>") 'ivy-resume)
+;;  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;;  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+;;  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+;;  (global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
+;;  (global-set-key (kbd "<f1> l") 'counsel-find-library)
+;;  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+;;  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-c g") 'counsel-git)
+  (global-set-key (kbd "C-c j") 'counsel-git-grep)
+  (global-set-key (kbd "C-c k") 'counsel-ag)
+  (global-set-key (kbd "C-x l") 'counsel-locate)
+  (global-set-key (kbd "C-S-o") 'counsel-rhythmbox))
+(use-package ivy-rich
+  :ensure t
+  :after ivy
+  :init
+  (ivy-rich-mode 1))
+
+(use-package hydra
+  :defer t)
+
 (use-package ivy-hydra
   :ensure t)
 (use-package ivy-avy
   :ensure t)
+(use-package prescient
+  :ensure t)
+(use-package ivy-prescient
+  :after counsel
+  :custom
+  (ivy-prescient-enable-filtering nil)
+  :config
+  ;; Uncomment the following line to have sorting remembered across sessions!
+  ;(prescient-persist-mode 1)
+  (ivy-prescient-mode 1))
 (use-package counsel
-  :ensure t)
+  :ensure t
+  :bind (("C-x b" . 'counsel-switch-buffer)
+	 :map minibuffer-local-map
+	 ("C-r" . 'counsel-minibuffer-history))
+  :config
+  (counsel-mode 1))
 (use-package amx
-  :ensure t)
-(use-package counsel-projectile
   :ensure t)
 (use-package ivy-rich
   :ensure t)
 (use-package wgrep
   :ensure t)
-(use-package prescient
-  :ensure t)
-(use-package ivy-prescient
-  :ensure t)
+
 (use-package fuzzy
   :ensure t)
 (use-package flx
@@ -191,9 +263,42 @@
 (use-package consult-eglot
   :ensure t)
 (use-package lsp-mode
-  :ensure t)
+  :ensure t
+  :hook (
+	 (lsp-mode . lsp-enable-which-key-integration)
+	 (java-mode . #'lsp-deferred)
+	 )
+  :init
+  (setq lsp-keymap-prefix "C-c l"
+	lsp-enable-file-watchers nil
+	read-process-output-max (* 1024 1024)  ; 1 mb
+	lsp-completion-provider :capf
+	lsp-idle-delay 0.500
+	)
+  :config
+  (lsp-enable-which-key-integration t)
+  (setq lsp-intelephense-multi-root nil) ; don't scan unnecessary projects
+  (with-eval-after-load 'lsp-intelephense
+    (setf (lsp--client-multi-root (gethash 'iph lsp-clients)) nil))
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map))
+
+(use-package lsp-treemacs
+  :after (lsp-mode treemacs)
+  :ensure t
+  :commands lsp-treemacs-errors-list
+  :bind (:map lsp-mode-map
+         ("M-9" . lsp-treemacs-errors-list)))
+
+(use-package treemacs
+  :ensure t
+  :commands (treemacs)
+  :after (lsp-mode))
+
 (use-package lsp-ui
-  :ensure t)
+  :ensure t
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-position 'bottom))
 (use-package lsp-ivy
   :ensure t)
 (use-package helm
@@ -210,7 +315,7 @@
   (setq-default projectile-mode-line-prefix "Proj")
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
- (use-package dashboard
+(use-package dashboard
   :ensure t
   :config
   (setq dashboard-banner-logo-title "Welcome to Emacs!") ;; 个性签名，随读者喜好设置
@@ -221,6 +326,12 @@
 			  (projects . 10))) ;; 显示多少个最近项目
   (dashboard-setup-startup-hook))
 
+(use-package counsel-projectile
+  :ensure t
+  :config
+  (counsel-projectile-mode 1)
+  (global-set-key (kbd "C-c p s g") 'counsel-projectile-grep)
+)
 (use-package neotree
   :config
   ;; f8 to view tree strucure of folder
@@ -240,6 +351,29 @@
   ;; switch with projectile
   (use-package projectile)
   (setq projectile-switch-project-action 'neotree-projectile-action))
+
+(use-package dap-mode
+  :after (lsp-mode)
+;;  :functions dap-hydra/nil
+  :config
+;;  (require 'dap-java)
+  (setq dap-auto-configure-features '(sessions locals controls tooltip))
+;;  :bind
+;;  (:map lsp-mode-map
+;;	("<f5>" . dap-debug)
+;;	("M-<f5>" . dap-hydra))
+;;  :hook
+;;  ((dap-mode . dap-ui-mode)
+;;   (dap-session-created . (lambda (&_rest) (dap-hydra)))
+;;   (dap-terminated . (lambda (&_rest) (dap-hydra/nil)))
+  )
+
+(use-package dap-java
+  :ensure nil)
+
+(use-package quickrun 
+:ensure t
+:bind ("C-c r" . quickrun))
 
 ;; lang
 ;; ;; cc
@@ -302,6 +436,17 @@
   :ensure t
   :hook
   (elpy-mode . py-autopep8-enable-on-save))
+
+;; lang/java
+(use-package lsp-java 
+:ensure t
+:config (add-hook 'java-mode-hook 'lsp))
+
+
+;; define own key-map
+;;(define-prefix-command 'z-map)
+;;(global-set-key (kbd "C-l") 'z-map)
+;;(define-key z-map (kbd "l") 'org-global-cycle)
 
 
 (provide 'jpackage)

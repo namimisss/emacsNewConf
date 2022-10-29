@@ -14,12 +14,12 @@
 ;;(require 'powerline-evil)
 
 ;; ivy
-(ivy-mode)
-(setq ivy-use-virtual-buffers t)
-(setq enable-recursive-minibuffers t)
+;;(ivy-mode)
+;;(setq ivy-use-virtual-buffers t)
+;;(setq enable-recursive-minibuffers t)
 ;; enable this if you want `swiper' to use it
 ;; (setq search-default-mode #'char-fold-to-regexp)
-(global-set-key "\C-s" 'swiper-isearch)
+;;(global-set-key "\C-s" 'swiper-isearch)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
 ;; multiple-cursors
@@ -28,6 +28,11 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+;; hydra
+(defhydra hydra-zoom (global-map "<f2>")
+  "zoom"
+  ("g" text-scale-increase "in")
+  ("l" text-scale-decrease "out"))
 
 ;; eglot
 ;;(add-to-list 'eglot-server-programs '(cc-mode . ("ccls")))
@@ -82,5 +87,7 @@
 (add-hook 'c++-mode-hook #'j-cc-fontify-constants-h)
 (add-hook 'c-mode-hook #'j-cc-mode-hook-func)
 (add-hook 'c-mode-hook #'j-cc-fontify-constants-h)
+
+
 
 (provide 'jconfig)

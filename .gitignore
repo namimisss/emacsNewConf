@@ -15,3 +15,6 @@ ido.last
 
 elpy
 eshell
+
+/.cache/*
+!/.cache/lsp
