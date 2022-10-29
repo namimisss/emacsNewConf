@@ -264,9 +264,13 @@
   :ensure t)
 (use-package lsp-mode
   :ensure t
+  :commands lsp
   :hook (
 	 (lsp-mode . lsp-enable-which-key-integration)
-	 (java-mode . #'lsp-deferred)
+	 (java-mode . lsp-deferred)
+	 (lsp-mode . lsp-lens-mode)
+	 (java-mode-hook lsp-java-boot-lens-mode)
+	 (sh-mode . lsp)
 	 )
   :init
   (setq lsp-keymap-prefix "C-c l"
@@ -354,9 +358,12 @@
 
 (use-package dap-mode
   :after (lsp-mode)
+  :commands dap-mode
 ;;  :functions dap-hydra/nil
   :config
-;;  (require 'dap-java)
+  (require 'dap-node)
+  (dap-node-setup)
+  (require 'dap-java)
   (setq dap-auto-configure-features '(sessions locals controls tooltip))
 ;;  :bind
 ;;  (:map lsp-mode-map
@@ -439,8 +446,13 @@
 
 ;; lang/java
 (use-package lsp-java 
-:ensure t
-:config (add-hook 'java-mode-hook 'lsp))
+  :ensure t
+  :defer t
+;;  :init
+;;  (setq lsp-java-server-install-dir
+  ;;        "~/.emacs/jdt-language-server-latest/")
+;; https://emacs-china.org/t/emacs-lsp-java-jdtls/12996
+  :config (add-hook 'java-mode-hook 'lsp))
 
 
 ;; define own key-map

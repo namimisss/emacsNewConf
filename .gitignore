@@ -18,3 +18,5 @@ eshell
 
 /.cache/*
 !/.cache/lsp
+workspace
+request
