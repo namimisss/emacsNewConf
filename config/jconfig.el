@@ -32,8 +32,11 @@
 ;; eglot
 ;;(add-to-list 'eglot-server-programs '(cc-mode . ("ccls")))
 ;;(add-to-list 'eglot-server-programs `(cc-mode . ("ccls")))
-(add-to-list 'eglot-server-programs '(c++-mode . ("ccls")))
-(add-to-list 'eglot-server-programs '(c-mode . ("ccls")))
+;;(add-to-list 'eglot-server-programs '(c++-mode . ("ccls")))
+;;(add-to-list 'eglot-server-programs '(c-mode . ("ccls")))
+(add-to-list 'eglot-server-programs '(c++-mode . ("ccls" "--init={\"index\": {\"threads\": 3}}")))
+(add-to-list 'eglot-server-programs '(c-mode . ("ccls" "--init={\"index\": {\"threads\": 3}}")))
+
 (add-hook 'c++-mode-hook 'eglot-ensure)
 (add-hook 'c-mode-hook 'eglot-ensure)
 (defun projectile-project-find-function (dir)
