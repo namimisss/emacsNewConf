@@ -100,7 +100,13 @@
   ([remap describe-key] . helpful-key))
 
 
-
+(use-package format-all
+ :ensure t
+ :config
+ (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
+ (add-hook 'c-mode-hook 'format-all-mode)
+ (add-hook 'c++-mode-hook 'format-all-mode)
+ )
 
 
 
