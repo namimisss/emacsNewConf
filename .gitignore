@@ -16,7 +16,6 @@ ido.last
 elpy
 eshell
 
-/.cache/*
-!/.cache/lsp
+.cache
 workspace
 request

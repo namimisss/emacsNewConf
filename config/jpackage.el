@@ -106,6 +106,7 @@
  (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
  (add-hook 'c-mode-hook 'format-all-mode)
  (add-hook 'c++-mode-hook 'format-all-mode)
+ (add-hook 'java-mode-hook 'format-all-mode)
  )
 
 

@@ -5119,3 +5119,163 @@ Command-line arguments:  -data /home/jerry/.emacs.d/workspace/ --add-modules=ALL
 
 !ENTRY org.eclipse.jdt.ls.core 1 0 2022-10-29 17:27:11.834
 !MESSAGE >> shutdown
+!SESSION 2022-11-01 19:32:16.005 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.14
+java.vendor=Ubuntu
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  --add-modules=ALL-SYSTEM --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED
+Command-line arguments:  -data /home/jerry/.emacs.d/workspace/ --add-modules=ALL-SYSTEM --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED
+
+!ENTRY org.eclipse.core.resources 2 10035 2022-11-01 19:32:17.982
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:18.931
+!MESSAGE class org.eclipse.jdt.ls.core.internal.JavaLanguageServerPlugin is started
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.133
+!MESSAGE Main thread is waiting
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.228
+!MESSAGE >> initialize
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.232
+!MESSAGE Initializing Java Language Server 1.12.0.202206011637
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.312
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.314
+!MESSAGE Non-Static Commands: [java.edit.organizeImports, java.project.refreshDiagnostics, java.project.import, java.navigate.openTypeHierarchy, java.project.removeFromSourcePath, java.project.listSourcePaths, java.project.resolveStackTraceLocation, java.project.getAll, java.project.isTestFile, java.project.getClasspaths, java.navigate.resolveTypeHierarchy, java.edit.stringFormatting, java.project.getSettings, java.project.updateSourceAttachment, java.project.resolveWorkspaceSymbol, java.project.upgradeGradle, java.project.resolveSourceAttachment, java.project.addToSourcePath]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.316
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.317
+!MESSAGE Non-Static Commands: [vscode.java.test.search.codelens, vscode.java.test.search.items.all, vscode.java.test.search.location, vscode.java.test.search.items, vscode.java.test.get.testpath, vscode.java.test.junit.argument]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.318
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.325
+!MESSAGE Non-Static Commands: [java.project.list, java.getPackageData, java.resolvePath]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.327
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.328
+!MESSAGE Non-Static Commands: [vscode.java.checkProjectSettings, vscode.java.isOnClasspath, vscode.java.fetchUsageData, vscode.java.validateLaunchConfig, vscode.java.resolveInlineVariables, vscode.java.resolveClassFilters, vscode.java.resolveMainMethod, vscode.java.resolveClasspath, vscode.java.resolveBuildFiles, vscode.java.resolveMainClass, vscode.java.updateDebugSettings, vscode.java.resolveSourceUri, vscode.java.fetchPlatformSettings, vscode.java.buildWorkspace, vscode.java.startDebugSession, vscode.java.inferLaunchCommandLength, vscode.java.resolveElementAtSelection, vscode.java.resolveJavaExecutable]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.329
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.329
+!MESSAGE Non-Static Commands: [sts.java.addClasspathListener, sts.java.removeClasspathListener]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.330
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.330
+!MESSAGE Non-Static Commands: [sts.java.javadoc]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.331
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.331
+!MESSAGE Non-Static Commands: [sts.java.type]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.332
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.332
+!MESSAGE Non-Static Commands: [sts.java.javadocHoverLink]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.333
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.333
+!MESSAGE Non-Static Commands: [sts.java.location]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.335
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.336
+!MESSAGE Non-Static Commands: [sts.java.search.packages, sts.java.search.types]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.337
+!MESSAGE Static Commands: []
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.337
+!MESSAGE Non-Static Commands: [sts.java.hierarchy.supertypes, sts.java.hierarchy.subtypes]
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.357
+!MESSAGE Starting org.eclipse.m2e.core
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.358
+!MESSAGE Started org.eclipse.m2e.core 1ms
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.376
+!MESSAGE ProjectRegistryRefreshJob finished 18ms
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.377
+!MESSAGE Starting org.eclipse.buildship.core
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:19.535
+!MESSAGE Started org.eclipse.buildship.core 158ms
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:21.307
+!MESSAGE LoadingGradleVersionJob finished 1772ms
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:21.360
+!MESSAGE >> initialized
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:22.255
+!MESSAGE Importing Maven project(s)
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:48.875
+!MESSAGE Importing Maven project(s)
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:48.917
+!MESSAGE Workspace initialized in 27606ms
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:49.127
+!MESSAGE >> initialization job finished
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:52.650
+!MESSAGE >> build jobs finished
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:52.757
+!MESSAGE >> registerWatchers'
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:52.760
+!MESSAGE >> watchers registered
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:53.885
+!MESSAGE >> document/codeLens
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:54.027
+!MESSAGE >> document/codeLens
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:54.051
+!MESSAGE >> document/codeLens
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:54.061
+!MESSAGE >> document/codeLens
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:54.065
+!MESSAGE >> document/codeLens
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:54.082
+!MESSAGE >> document/codeLens
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:54.116
+!MESSAGE >> document/codeLens
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:54.163
+!MESSAGE >> document/codeLens
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:54.268
+!MESSAGE >> document/codeLens
+
+!ENTRY org.eclipse.jdt.ls.core 1 0 2022-11-01 19:32:54.373
+!MESSAGE >> document/codeLens
