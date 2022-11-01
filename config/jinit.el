@@ -46,4 +46,9 @@
       auto-revert-use-notify nil
       auto-revert-stop-on-user-input nil)
 
+(global-unset-key (kbd "<up>"))
+(global-unset-key (kbd "<down>"))
+(global-unset-key (kbd "<left>"))
+(global-unset-key (kbd "<right>"))
+
 (provide 'jinit)
