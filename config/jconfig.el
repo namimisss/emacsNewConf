@@ -45,6 +45,7 @@
 (add-hook 'c++-mode-hook 'eglot-ensure)
 (add-hook 'c-mode-hook 'eglot-ensure)
 (add-hook 'js-mode-hook 'eglot-ensure)
+(add-hook 'lua-mode-hook 'eglot-ensure)
 
 (defun projectile-project-find-function (dir)
   (let* ((root (projectile-project-root dir)))

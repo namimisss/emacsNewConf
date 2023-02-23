@@ -473,6 +473,9 @@
 ;; https://emacs-china.org/t/emacs-lsp-java-jdtls/12996
   :config (add-hook 'java-mode-hook 'lsp))
 
+;; lang/lua
+;;(use-package lua-mode
+;;  :ensure t)
 
 ;; define own key-map
 ;;(define-prefix-command 'z-map)
