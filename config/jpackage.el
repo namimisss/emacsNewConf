@@ -20,6 +20,10 @@
 (use-package magit
   :ensure t)
 (use-package flycheck
+  :ensure t
+  :config
+  (setq flycheck-checker-error-threshold 10000))
+(use-package protobuf-mode
   :ensure t)
 (use-package diff-hl
   :ensure t
@@ -79,14 +83,14 @@
   (marginalia-mode))
 (use-package avy
   :ensure t)
-(use-package multiple-cursors
-  :ensure t
+;;(use-package multiple-cursors
+;;  :ensure t
 ;;  :config
 ;;  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 ;;  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 ;;  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 ;;  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-  )
+;;  )
 
 (use-package helpful
   :commands (helpful-callable helpful-variable helpful-command helpful-key)
@@ -107,6 +111,7 @@
  (add-hook 'c-mode-hook 'format-all-mode)
  (add-hook 'c++-mode-hook 'format-all-mode)
  (add-hook 'java-mode-hook 'format-all-mode)
+ (add-hook 'protobuf-mode-hook 'format-all-mode)
  )
 
 
@@ -117,9 +122,15 @@
   :ensure t
   ;;  :init (load-theme 'solarized-dark t)
   )
+
+(use-package monokai-theme
+  :ensure t
+  :init (load-theme 'monokai t))
+
 (use-package darkokai-theme
   :ensure t
-  :init (load-theme 'darkokai t))
+  ;;  :init (load-theme 'darkokai t)
+  )
 (use-package all-the-icons
   :ensure t)
 (use-package doom-modeline
@@ -312,10 +323,6 @@
   (lsp-ui-doc-position 'bottom))
 (use-package lsp-ivy
   :ensure t)
-(use-package helm
-  :ensure t)
-(use-package helm-lsp
-  :ensure t)
 (use-package consult-lsp
   :ensure t )
 (use-package projectile
@@ -427,8 +434,6 @@
   :ensure t)
 (use-package ivy-rtags
   :ensure t)
-(use-package helm-rtags
-  :ensure t)
 (use-package rainbow-delimiters
   :ensure t)
 (use-package neotree
@@ -449,7 +454,14 @@
 (use-package py-autopep8
   :ensure t
   :hook
-  (elpy-mode . py-autopep8-enable-on-save))
+  (elpy-mode . py-autopep8-mode))
+
+;; lang/js
+(use-package tern
+  :ensure t
+  :config
+  (define-key tern-mode-keymap (kbd "M-.") nil)
+  (define-key tern-mode-keymap (kbd "M-,") nil))
 
 ;; lang/java
 (use-package lsp-java 

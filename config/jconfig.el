@@ -39,11 +39,13 @@
 ;;(add-to-list 'eglot-server-programs `(cc-mode . ("ccls")))
 ;;(add-to-list 'eglot-server-programs '(c++-mode . ("ccls")))
 ;;(add-to-list 'eglot-server-programs '(c-mode . ("ccls")))
-(add-to-list 'eglot-server-programs '(c++-mode . ("ccls" "--init={\"index\": {\"threads\": 3}}")))
-(add-to-list 'eglot-server-programs '(c-mode . ("ccls" "--init={\"index\": {\"threads\": 3}}")))
+(add-to-list 'eglot-server-programs '(c++-mode . ("ccls" "--init={\"index\": {\"threads\": 8}}")))
+(add-to-list 'eglot-server-programs '(c-mode . ("ccls" "--init={\"index\": {\"threads\": 8}}")))
 
 (add-hook 'c++-mode-hook 'eglot-ensure)
 (add-hook 'c-mode-hook 'eglot-ensure)
+(add-hook 'js-mode-hook 'eglot-ensure)
+
 (defun projectile-project-find-function (dir)
   (let* ((root (projectile-project-root dir)))
     (and root (cons 'transient root))))
@@ -72,6 +74,7 @@
   (demangle-mode)
   (modern-c++-font-lock-mode)
   (irony-mode)
+  (hs-minor-mode)
   )
 
 ;;;###autoload
