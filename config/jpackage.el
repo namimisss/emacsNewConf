@@ -114,6 +114,14 @@
  (add-hook 'protobuf-mode-hook 'format-all-mode)
  )
 
+(use-package flyspell-correct
+  :ensure t
+  :after flyspell
+  )
+(use-package flyspell-correct-ivy
+  :ensure t
+  :after flyspell-correct)
+
 
 
 

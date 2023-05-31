@@ -92,6 +92,9 @@
 (add-hook 'c-mode-hook #'j-cc-mode-hook-func)
 (add-hook 'c-mode-hook #'j-cc-fontify-constants-h)
 
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
 
 
 (provide 'jconfig)
