@@ -16,6 +16,9 @@
 (use-package exec-path-from-shell :ensure t)
 (exec-path-from-shell-initialize)
 
+(use-package eglot
+  :ensure t)
+
 ;; basic
 (use-package magit
   :ensure t)
@@ -139,6 +142,12 @@
   :ensure t
   ;;  :init (load-theme 'darkokai t)
   )
+
+(use-package nerd-icons
+  :ensure t
+  :custom (nerd-icons-font-family "Symbols Nerd Font Mono")
+  )
+
 (use-package all-the-icons
   :ensure t)
 (use-package doom-modeline
@@ -459,10 +468,10 @@
   :config
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
 
-(use-package py-autopep8
-  :ensure t
-  :hook
-  (elpy-mode . py-autopep8-mode))
+;;(use-package py-autopep8
+;;  :ensure t
+;;  :hook
+;;  (elpy-mode . py-autopep8-mode))
 
 ;; lang/js
 (use-package tern

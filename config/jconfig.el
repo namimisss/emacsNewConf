@@ -35,12 +35,16 @@
   ("l" text-scale-decrease "out"))
 
 ;; eglot
+
+(require 'ccls)
+(setq ccls-executable "/home/jerry/.local/bin/ccls")
+
 ;;(add-to-list 'eglot-server-programs '(cc-mode . ("ccls")))
 ;;(add-to-list 'eglot-server-programs `(cc-mode . ("ccls")))
 ;;(add-to-list 'eglot-server-programs '(c++-mode . ("ccls")))
 ;;(add-to-list 'eglot-server-programs '(c-mode . ("ccls")))
-(add-to-list 'eglot-server-programs '(c++-mode . ("ccls" "--init={\"index\": {\"threads\": 8}}")))
-(add-to-list 'eglot-server-programs '(c-mode . ("ccls" "--init={\"index\": {\"threads\": 8}}")))
+(add-to-list 'eglot-server-programs '(c++-mode . ("ccls" "--init={\"index\": {\"threads\": 20}}")))
+(add-to-list 'eglot-server-programs '(c-mode . ("ccls" "--init={\"index\": {\"threads\": 20}}")))
 
 (add-hook 'c++-mode-hook 'eglot-ensure)
 (add-hook 'c-mode-hook 'eglot-ensure)

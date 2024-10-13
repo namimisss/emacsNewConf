@@ -34,7 +34,7 @@
 (show-paren-mode t)
 
 ;; (add-to-list 'default-frame-alist '(font . "Source Code Pro-18"))
-(add-to-list 'default-frame-alist '(font . "Consolas-18"))
+;;(add-to-list 'default-frame-alist '(font . "Consolas-18"))
 ;; (set-frame-font "Source Code Pro-18")
 
 ;; theme
