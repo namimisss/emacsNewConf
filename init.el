@@ -11,7 +11,9 @@
  ;; If there is more than one, they won't work right.
  '(cmake-mode-cmake-executable "/usr/bin/cmake")
  '(package-selected-packages
-   '(helm-rtags ivy-rtags rtags company-irony-c-headers company-irony irony-eldoc irony modern-cpp-font-lock disaster demangle cmake-mode use-package)))
+   '(helm-rtags ivy-rtags rtags company-irony-c-headers company-irony irony-eldoc irony modern-cpp-font-lock disaster demangle cmake-mode use-package))
+ '(python-indent-offset 4)
+ '(pyvenv-workon "sys"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

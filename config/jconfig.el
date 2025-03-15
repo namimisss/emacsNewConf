@@ -1,3 +1,4 @@
+
 ;; basic confi
 ;; Code indentation
 ;; https://xhcoding.cn/post/20211222180104-emacs%E7%BC%A9%E8%BF%9B%E8%AE%BE%E7%BD%AE/
@@ -37,7 +38,7 @@
 ;; eglot
 
 (require 'ccls)
-(setq ccls-executable "/home/jerry/.local/bin/ccls")
+(setq ccls-executable "/usr/bin/ccls")
 
 ;;(add-to-list 'eglot-server-programs '(cc-mode . ("ccls")))
 ;;(add-to-list 'eglot-server-programs `(cc-mode . ("ccls")))
@@ -45,6 +46,8 @@
 ;;(add-to-list 'eglot-server-programs '(c-mode . ("ccls")))
 (add-to-list 'eglot-server-programs '(c++-mode . ("ccls" "--init={\"index\": {\"threads\": 20}}")))
 (add-to-list 'eglot-server-programs '(c-mode . ("ccls" "--init={\"index\": {\"threads\": 20}}")))
+
+;;(add-to-list 'eglot-server-programs '((c++-mode c-mode) ("clangd" "-j=20" "--clang-tidy")))
 
 (add-hook 'c++-mode-hook 'eglot-ensure)
 (add-hook 'c-mode-hook 'eglot-ensure)
@@ -99,6 +102,7 @@
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
-
-
+(setq-default c-basic-offset 4
+			  tab-width 4
+			  )
 (provide 'jconfig)

@@ -26,7 +26,8 @@
 
 (setq make-backup-files nil)
 ;; set global line minor mode
-(global-linum-mode 1)
+;;(global-linum-mode 1)
+(global-display-line-numbers-mode)
 ;; set global highlight line minor mode
 (global-hl-line-mode 1)
 
@@ -51,5 +52,6 @@
 (global-unset-key (kbd "<down>"))
 (global-unset-key (kbd "<left>"))
 (global-unset-key (kbd "<right>"))
+
 
 (provide 'jinit)

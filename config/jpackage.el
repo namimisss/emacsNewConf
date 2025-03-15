@@ -115,6 +115,7 @@
  (add-hook 'c++-mode-hook 'format-all-mode)
  (add-hook 'java-mode-hook 'format-all-mode)
  (add-hook 'protobuf-mode-hook 'format-all-mode)
+ (add-hook 'python-mode-hook 'format-all-mode)
  )
 
 (use-package flyspell-correct
