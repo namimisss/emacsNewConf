@@ -10,4 +10,4 @@
   :config
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
 
-(provide 'python-config)
+(provide 'python/python-config)

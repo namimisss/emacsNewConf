@@ -16,6 +16,7 @@
   (add-to-list 'load-path (expand-file-name "ui" config-dir))
   (add-to-list 'load-path (expand-file-name "completion" config-dir))
   (add-to-list 'load-path (expand-file-name "tools" config-dir))
+  (add-to-list 'load-path (expand-file-name "languages" config-dir))
   (add-to-list 'load-path (expand-file-name "languages/cpp" config-dir))
   (add-to-list 'load-path (expand-file-name "languages/java" config-dir))
   (add-to-list 'load-path (expand-file-name "languages/python" config-dir))
@@ -41,10 +42,7 @@
 (require 'tools-misc)       ; Other tools
 
 ;; 5. Language Configuration
-(require 'cpp-config)       ; C++
-(require 'java-config)      ; Java
-(require 'python-config)    ; Python
-(require 'js-config)        ; JavaScript
+(require 'languages-config)   ; Load language configurations
 
 ;; Global key bindings
 (global-set-key (kbd "C-c C-r") 'ivy-resume)

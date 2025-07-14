@@ -105,4 +105,4 @@
 (setq-default c-basic-offset 4
               tab-width 4)
 
-(provide 'cpp-config)
+(provide 'cpp/cpp-config)
