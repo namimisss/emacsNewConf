@@ -76,6 +76,7 @@
   (modern-c++-font-lock-mode)
   (irony-mode)
   (hs-minor-mode)
+  ;; flycheck-mode 通过全局 prog-mode-hook 启用，这里不需要重复
   )
 
 ;;;###autoload
@@ -94,6 +95,14 @@
 
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+;; 为编程模式启用flycheck
+(add-hook 'prog-mode-hook 'flycheck-mode)
+
+;; flycheck 键绑定
+(global-set-key (kbd "C-c f l") 'flycheck-list-errors)
+(global-set-key (kbd "C-c f n") 'flycheck-next-error)
+(global-set-key (kbd "C-c f p") 'flycheck-previous-error)
+(global-set-key (kbd "C-c f v") 'flycheck-verify-setup)
 
 (setq-default c-basic-offset 4
 			  tab-width 4

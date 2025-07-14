@@ -3,6 +3,7 @@
                          ("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
                          ("org"   . "https://mirrors.ustc.edu.cn/elpa/org/")))
 
+(require 'cl-lib)
 
 ;; 1. install use-package
 (setq package-selected-packages '(use-package))
@@ -21,8 +22,25 @@
   :ensure t)
 (use-package flycheck
   :ensure t
+  :init (global-flycheck-mode)
   :config
-  (setq flycheck-checker-error-threshold 10000))
+  (setq flycheck-checker-error-threshold 10000)
+  ;; 配置flycheck与lsp-mode的集成
+  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
+  (setq flycheck-idle-change-delay 0.5))
+
+;; flycheck 扩展包
+(use-package flycheck-pos-tip
+  :ensure t
+  :after flycheck
+  :config
+  (flycheck-pos-tip-mode))
+
+(use-package flycheck-popup-tip
+  :ensure t
+  :after flycheck
+  :hook (flycheck-mode . flycheck-popup-tip-mode))
+
 (use-package protobuf-mode
   :ensure t)
 (use-package diff-hl
@@ -165,9 +183,14 @@
 ;; complete
 ;; ;; complet/company
 (use-package company
-  :ensure t)
+  :ensure t
+  :init (global-company-mode)
+  :config
+  (setq company-idle-delay 0.2)
+  (setq company-minimum-prefix-length 1))
 (use-package company-box
-  :ensure t)
+  :ensure t
+  :hook (company-mode . company-box-mode))
 
 ;; completion/ido
 (use-package flx-ido
@@ -299,6 +322,7 @@
   :commands lsp
   :hook (
 	 (lsp-mode . lsp-enable-which-key-integration)
+	 (lsp-mode . flycheck-mode)
 	 (java-mode . lsp-deferred)
 	 (lsp-mode . lsp-lens-mode)
 	 (java-mode-hook lsp-java-boot-lens-mode)
@@ -310,6 +334,9 @@
 	read-process-output-max (* 1024 1024)  ; 1 mb
 	lsp-completion-provider :capf
 	lsp-idle-delay 0.500
+	;; 禁用lsp内置的flycheck，使用外部flycheck
+	lsp-prefer-flymake nil
+	lsp-diagnostics-provider :flycheck
 	)
   :config
   (lsp-enable-which-key-integration t)
@@ -334,7 +361,10 @@
   :ensure t
   :hook (lsp-mode . lsp-ui-mode)
   :custom
-  (lsp-ui-doc-position 'bottom))
+  (lsp-ui-doc-position 'bottom)
+  (lsp-ui-flycheck-enable t)
+  (lsp-ui-flycheck-list-position 'right)
+  (lsp-ui-flycheck-live-reporting t))
 (use-package lsp-ivy
   :ensure t)
 (use-package consult-lsp
