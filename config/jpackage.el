@@ -1,6 +1,7 @@
 ;; ------ 清华源 ------
-(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+(setq package-archives '(("gnu"   . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+                         ("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
+                         ("org"   . "https://mirrors.ustc.edu.cn/elpa/org/")))
 
 
 ;; 1. install use-package
@@ -13,11 +14,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-(use-package exec-path-from-shell :ensure t)
-(exec-path-from-shell-initialize)
 
-(use-package eglot
-  :ensure t)
 
 ;; basic
 (use-package magit
@@ -293,11 +290,10 @@
   :ensure t)
 
 ;; tools
-;; tools/ccl
-(use-package eglot
+
+(use-package ccls
   :ensure t)
-(use-package consult-eglot
-  :ensure t)
+
 (use-package lsp-mode
   :ensure t
   :commands lsp
@@ -388,15 +384,15 @@
   (use-package projectile)
   (setq projectile-switch-project-action 'neotree-projectile-action))
 
-(use-package dap-mode
-  :after (lsp-mode)
-  :commands dap-mode
+;(use-package dap-mode
+;  :after (lsp-mode)
+;  :commands dap-mode
 ;;  :functions dap-hydra/nil
-  :config
-  (require 'dap-node)
-  (dap-node-setup)
-  (require 'dap-java)
-  (setq dap-auto-configure-features '(sessions locals controls tooltip))
+;  :config
+;  (require 'dap-node)
+;  (dap-node-setup)
+;  (require 'dap-java)
+;  (setq dap-auto-configure-features '(sessions locals controls tooltip))
 ;;  :bind
 ;;  (:map lsp-mode-map
 ;;	("<f5>" . dap-debug)
@@ -405,7 +401,7 @@
 ;;  ((dap-mode . dap-ui-mode)
 ;;   (dap-session-created . (lambda (&_rest) (dap-hydra)))
 ;;   (dap-terminated . (lambda (&_rest) (dap-hydra/nil)))
-  )
+;  )
 
 (use-package dap-java
   :ensure nil)

@@ -35,24 +35,17 @@
   ("g" text-scale-increase "in")
   ("l" text-scale-decrease "out"))
 
-;; eglot
+;; lsp-mode
 
 (require 'ccls)
 (setq ccls-executable "/usr/bin/ccls")
 
-;;(add-to-list 'eglot-server-programs '(cc-mode . ("ccls")))
-;;(add-to-list 'eglot-server-programs `(cc-mode . ("ccls")))
-;;(add-to-list 'eglot-server-programs '(c++-mode . ("ccls")))
-;;(add-to-list 'eglot-server-programs '(c-mode . ("ccls")))
-(add-to-list 'eglot-server-programs '(c++-mode . ("ccls" "--init={\"index\": {\"threads\": 20}}")))
-(add-to-list 'eglot-server-programs '(c-mode . ("ccls" "--init={\"index\": {\"threads\": 20}}")))
+;; lsp-mode configuration
+(setq lsp-clients-ccls-args '("--init={\"index\": {\"threads\": 20}}"))
 
-;;(add-to-list 'eglot-server-programs '((c++-mode c-mode) ("clangd" "-j=20" "--clang-tidy")))
-
-(add-hook 'c++-mode-hook 'eglot-ensure)
-(add-hook 'c-mode-hook 'eglot-ensure)
-(add-hook 'js-mode-hook 'eglot-ensure)
-(add-hook 'lua-mode-hook 'eglot-ensure)
+;; Add C/C++ hooks - note that lsp-mode configuration in jpackage.el already includes java and sh
+(add-hook 'c++-mode-hook 'lsp)
+(add-hook 'c-mode-hook 'lsp)
 
 (defun projectile-project-find-function (dir)
   (let* ((root (projectile-project-root dir)))
