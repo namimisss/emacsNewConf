@@ -38,11 +38,11 @@
 (use-package company-irony-c-headers
   :ensure t)
 
-(use-package rtags
-  :ensure t)
-
-(use-package ivy-rtags
-  :ensure t)
+;; 注意: rtags已被LSP/clangd替代，不再需要
+;; (use-package rtags
+;;   :ensure t)
+;; (use-package ivy-rtags
+;;   :ensure t)
 
 (use-package rainbow-delimiters
   :ensure t)

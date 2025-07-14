@@ -27,7 +27,7 @@
 ;; 3. 补全配置
 (require 'completion-company)  ; Company补全
 (require 'completion-ivy)      ; Ivy补全
-(require 'completion-vertico)  ; Vertico补全
+;; (require 'completion-vertico)  ; Vertico补全 - 与ivy冲突，暂时注释
 
 ;; 4. 工具配置
 (require 'tools-flycheck)   ; 语法检查

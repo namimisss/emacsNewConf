@@ -22,19 +22,29 @@
 	;; 禁用lsp内置的flycheck，使用外部flycheck
 	lsp-prefer-flymake nil
 	lsp-diagnostics-provider :flycheck
+	;; 确保lens功能启用
+	lsp-lens-enable t                     ; 全局启用lens
+	lsp-lens-place-position 'above-line   ; lens显示在行上方
 	)
   :config
   (lsp-enable-which-key-integration t)
   (setq lsp-intelephense-multi-root nil) ; don't scan unnecessary projects
   (with-eval-after-load 'lsp-intelephense
     (setf (lsp--client-multi-root (gethash 'iph lsp-clients)) nil))
-  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map))
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
+  ;; 添加一些有用的快捷键
+  (define-key lsp-mode-map (kbd "C-c l r") 'lsp-find-references)
+  (define-key lsp-mode-map (kbd "C-c l d") 'lsp-find-definition)
+  (define-key lsp-mode-map (kbd "C-c l i") 'lsp-find-implementation))
 
 (use-package lsp-ui
   :ensure t
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-position 'bottom)
+  (lsp-ui-sideline-enable t)              ; 启用侧边栏
+  (lsp-ui-sideline-show-hover t)          ; 显示悬停信息
+  (lsp-ui-sideline-show-code-actions nil) ; 关闭代码动作以减少干扰
   (lsp-ui-flycheck-enable t)
   (lsp-ui-flycheck-list-position 'right)
   (lsp-ui-flycheck-live-reporting t))
