@@ -1,11 +1,16 @@
-;; config/main-config.el - 主配置文件
-;; 这是新的统一配置入口，替代原来的 jpackage.el, jconfig.el, jinit.el
+;; config/main-config.el - Main Configuration File
+;; This is the new unified configuration entry, replacing the original jpackage.el, jconfig.el, jinit.el
+;; Note: Version checking is completed in init.el, configuration loading starts directly here
 
-;; 确保包系统已初始化
+;; =============================================================================
+;; Configuration Loading Start
+;; =============================================================================
+
+;; Ensure package system is initialized
 (require 'package)
 (package-initialize)
 
-;; 添加配置路径到load-path
+;; Add configuration paths to load-path
 (let ((config-dir (expand-file-name "config" user-emacs-directory)))
   (add-to-list 'load-path (expand-file-name "base" config-dir))
   (add-to-list 'load-path (expand-file-name "ui" config-dir))
@@ -16,41 +21,41 @@
   (add-to-list 'load-path (expand-file-name "languages/python" config-dir))
   (add-to-list 'load-path (expand-file-name "languages/javascript" config-dir)))
 
-;; 1. 基础配置
-(require 'base-packages)  ; 包管理
-(require 'base-basic)     ; 基础工具
+;; 1. Base Configuration
+(require 'base-packages)  ; Package management
+(require 'base-basic)     ; Basic tools
 
-;; 2. UI配置
-(require 'ui-themes)      ; 主题
-(require 'ui-interface)   ; 界面
+;; 2. UI Configuration
+(require 'ui-themes)      ; Themes
+(require 'ui-interface)   ; Interface
 
-;; 3. 补全配置
-(require 'completion-company)  ; Company补全
-(require 'completion-ivy)      ; Ivy补全
-;; (require 'completion-vertico)  ; Vertico补全 - 与ivy冲突，暂时注释
+;; 3. Completion Configuration
+(require 'completion-company)  ; Company completion
+(require 'completion-ivy)      ; Ivy completion
+;; (require 'completion-vertico)  ; Vertico completion - conflicts with ivy, temporarily commented
 
-;; 4. 工具配置
-(require 'tools-flycheck)   ; 语法检查
+;; 4. Tools Configuration
+(require 'tools-flycheck)   ; Syntax checking
 (require 'tools-lsp)        ; LSP
-(require 'tools-projectile) ; 项目管理
-(require 'tools-misc)       ; 其他工具
+(require 'tools-projectile) ; Project management
+(require 'tools-misc)       ; Other tools
 
-;; 5. 语言配置
+;; 5. Language Configuration
 (require 'cpp-config)       ; C++
 (require 'java-config)      ; Java
 (require 'python-config)    ; Python
 (require 'js-config)        ; JavaScript
 
-;; 全局键绑定
+;; Global key bindings
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
-;; multiple-cursors (如果需要的话)
+;; multiple-cursors (if needed)
 ;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 ;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 ;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 ;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
-;; hydra配置
+;; hydra configuration
 (defhydra hydra-zoom (global-map "<f2>")
   "zoom"
   ("g" text-scale-increase "in")
