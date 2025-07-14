@@ -1,9 +1,28 @@
-
-;; basic confi
+;; basic config
 ;; Code indentation
 ;; https://xhcoding.cn/post/20211222180104-emacs%E7%BC%A9%E8%BF%9B%E8%AE%BE%E7%BD%AE/
+(require 'cc-mode)
 (add-to-list 'c-default-style '(c++-mode . "k&r"))
 (add-to-list 'c-default-style '(c-mode . "k&r"))
+
+;; lsp-mode with clangd configuration
+;; clangd配置 - 替代ccls
+;; clangd会自动被lsp-mode检测并使用，无需额外包
+;; 设置clangd的命令行参数以获得最佳性能
+(setq lsp-clients-clangd-args '("-j=20"
+                                "--background-index"
+                                "--clang-tidy"
+                                "--completion-style=detailed"
+                                "--header-insertion=never"
+                                "--header-insertion-decorators=0"))
+
+;; 强制LSP使用clangd而不是ccls
+(with-eval-after-load 'lsp-mode
+  ;; 移除ccls的优先级，确保使用clangd
+  (setq lsp-clients-cc-providers '(clangd))
+  ;; 设置clangd可执行文件路径
+  (setq lsp-clients-clangd-executable "clangd"))
+
 ;; company
 (add-hook 'after-init-hook 'global-company-mode)
 (eval-after-load 'company
@@ -35,18 +54,37 @@
   ("g" text-scale-increase "in")
   ("l" text-scale-decrease "out"))
 
-;; lsp-mode
+;; clangd配置
+;; clangd会自动被lsp-mode检测并使用，无需额外配置
+;; 但我们可以设置一些优化参数
 
-(require 'ccls)
-(setq ccls-executable "/usr/bin/ccls")
+;; 设置clangd的命令行参数
+(setq lsp-clients-clangd-args '("-j=20"
+                                "--background-index"
+                                "--clang-tidy"
+                                "--completion-style=detailed"
+                                "--header-insertion=never"
+                                "--header-insertion-decorators=0"))
 
-;; lsp-mode configuration
-(setq lsp-clients-ccls-args '("--init={\"index\": {\"threads\": 20}}"))
+;; 强制LSP使用clangd而不是ccls
+(with-eval-after-load 'lsp-mode
+  ;; 移除ccls的优先级，确保使用clangd
+  (setq lsp-clients-cc-providers '(clangd))
+  ;; 明确设置C/C++模式使用clangd
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection
+                                     (lambda () (append lsp-clients-clangd-executable lsp-clients-clangd-args)))
+                    :activation-fn (lsp-activate-on "c" "cpp" "objective-c")
+                    :priority 1
+                    :server-id 'clangd
+                    :library-folders-fn (lambda (_workspace) lsp-clients-clangd-library-directories))))
 
-;; Add C/C++ hooks - note that lsp-mode configuration in jpackage.el already includes java and sh
-(add-hook 'c++-mode-hook 'lsp)
-(add-hook 'c-mode-hook 'lsp)
+;; company
+(add-hook 'after-init-hook 'global-company-mode)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-cmake))
 
+;; projectile integration
 (defun projectile-project-find-function (dir)
   (let* ((root (projectile-project-root dir)))
     (and root (cons 'transient root))))
@@ -90,8 +128,10 @@
 
 (add-hook 'c++-mode-hook #'j-cc-mode-hook-func)
 (add-hook 'c++-mode-hook #'j-cc-fontify-constants-h)
+(add-hook 'c++-mode-hook #'lsp-deferred)
 (add-hook 'c-mode-hook #'j-cc-mode-hook-func)
 (add-hook 'c-mode-hook #'j-cc-fontify-constants-h)
+(add-hook 'c-mode-hook #'lsp-deferred)
 
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)

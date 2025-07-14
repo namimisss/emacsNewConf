@@ -314,8 +314,8 @@
 
 ;; tools
 
-(use-package ccls
-  :ensure t)
+;; 注释：不再需要ccls包，使用clangd作为C/C++ LSP服务器
+;; clangd是内置在lsp-mode中支持的，不需要额外的包
 
 (use-package lsp-mode
   :ensure t
@@ -323,6 +323,8 @@
   :hook (
 	 (lsp-mode . lsp-enable-which-key-integration)
 	 (lsp-mode . flycheck-mode)
+	 (c-mode . lsp-deferred)
+	 (c++-mode . lsp-deferred)
 	 (java-mode . lsp-deferred)
 	 (lsp-mode . lsp-lens-mode)
 	 (java-mode-hook lsp-java-boot-lens-mode)

@@ -1,0 +1,42 @@
+# clangd 配置文件
+# 替代之前的ccls配置
+
+CompileFlags:
+  # 添加编译器参数
+  Add: 
+    - "-std=c++17"
+    - "-Wall"
+    - "-Wextra"
+
+Index:
+  # 背景索引，提高性能 (使用正确的值)
+  Background: Build
+
+InlayHints:
+  # 显示类型提示
+  Enabled: true
+  # 参数名提示
+  ParameterNames: true
+  # 类型推导提示
+  DeducedTypes: true
+
+Hover:
+  # 悬停时显示详细信息
+  ShowAKA: true
+
+Diagnostics:
+  # 启用clang-tidy检查，但排除过于严格的规则
+  ClangTidy:
+    Add: 
+      - "bugprone-*"
+      - "performance-*" 
+      - "readability-*"
+      - "modernize-*"
+    Remove: 
+      - "llvmlibc-*"
+      - "readability-magic-numbers"
+      - "readability-function-cognitive-complexity"
+      - "altera-*"
+  # 禁用某些警告
+  Suppress: 
+    - "unused-parameter"
