@@ -1,9 +1,8 @@
-(package-initialize)
+;; 添加配置路径
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 
-(require 'jinit)
-(require 'jpackage)
-(require 'jconfig)
+;; 使用新的统一配置
+(require 'main-config)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
