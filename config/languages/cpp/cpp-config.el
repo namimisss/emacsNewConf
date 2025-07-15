@@ -1,4 +1,4 @@
-;; languages/cpp/cpp-config.el - C++语言配置
+;; languages/cpp/cpp-config.el - C++语言配置 (简化版本)
 
 ;; C++ 基础配置
 (require 'cc-mode)
@@ -38,48 +38,10 @@
 (use-package company-irony-c-headers
   :ensure t)
 
-;; 注意: rtags已被LSP/clangd替代，不再需要
-;; (use-package rtags
-;;   :ensure t)
-;; (use-package ivy-rtags
-;;   :ensure t)
-
 (use-package rainbow-delimiters
   :ensure t)
 
-;; 配置预处理器高亮和置灰功能
-(defun j-setup-preprocessor-highlight ()
-  "Setup preprocessor directive highlighting and inactive region graying"
-  ;; 配置 shadow face 以获得更好的置灰效果
-  (set-face-attribute 'shadow nil 
-                      :foreground "#666666" 
-                      :background nil
-                      :inherit nil)
-  
-  ;; 添加字体锁定关键词来识别和置灰 #if 0 区域
-  (font-lock-add-keywords
-   nil 
-   '(;; 匹配 #if 0 ... #endif 区域
-     ("^[ \t]*#[ \t]*if[ \t]+0[ \t]*\\(?://.*\\)?$\\(?:\n\\(?:.*\\)\\)*?^[ \t]*#[ \t]*endif\\(?:[ \t]*//.*\\)?[ \t]*$" 
-      . 'shadow)
-     ;; 匹配 #ifdef NEVER_DEFINED 风格的区域  
-     ("^[ \t]*#[ \t]*ifdef[ \t]+\\(?:NEVER_DEFINED\\|DISABLED\\|__NEVER__\\)[ \t]*\\(?://.*\\)?$\\(?:\n\\(?:.*\\)\\)*?^[ \t]*#[ \t]*endif\\(?:[ \t]*//.*\\)?[ \t]*$" 
-      . 'shadow))
-   'append))
-
-;; 改进的 hide-ifdef 配置
-(defun j-setup-hide-ifdef ()
-  "Configure hide-ifdef-mode for better preprocessor handling"
-  (when (fboundp 'hide-ifdef-mode)
-    ;; 设置 hide-ifdef-mode 的环境变量
-    (setq hide-ifdef-env '())
-    ;; 使用阴影而不是隐藏
-    (setq hide-ifdef-shadow t)
-    ;; 设置阴影 face
-    (setq hide-ifdef-shadow-face 'shadow)))
-
 ;; clangd配置
-;; 设置clangd的命令行参数以获得最佳性能
 (with-eval-after-load 'lsp-mode
   (setq lsp-clients-clangd-args '("-j=20"
                                   "--background-index"
@@ -103,43 +65,12 @@
   (demangle-mode)
   (modern-c++-font-lock-mode)
   (irony-mode)
-  (hs-minor-mode)
-  ;; 配置预处理器功能
-  (j-setup-hide-ifdef)
-  ;; 启用 ifdef 隐藏模式来处理宏定义
-  (hide-ifdef-mode 1))
-
-(defun j-cc-fontify-constants-h ()
-  "Better fontification for preprocessor constants"
-  (when (memq major-mode '(c-mode c++-mode))
-    (font-lock-add-keywords
-     nil '(("\\<[A-Z]*_[0-9A-Z_]+\\>" . font-lock-constant-face)
-           ("\\<[A-Z]\\{3,\\}\\>"  . font-lock-constant-face))
-     t)))
-
-;; 添加 C++ 宏定义和预处理器的特殊处理
-(defun j-setup-cpp-inactive-regions ()
-  "Setup inactive region highlighting for C++ preprocessor directives"
-  (when (and (memq major-mode '(c-mode c++-mode))
-             (bound-and-true-p lsp-mode))
-    ;; 确保 LSP 语义高亮正常工作
-    (lsp-semantic-tokens-mode 1)
-    ;; 设置宏定义相关的颜色
-    (face-remap-add-relative 'lsp-face-semhl-macro 
-                             :foreground "#888888" :slant 'italic)
-    (face-remap-add-relative 'lsp-face-semhl-comment 
-                             :foreground "#666666")))
+  (hs-minor-mode))
 
 ;; 添加hook
 (add-hook 'c++-mode-hook #'j-cc-mode-hook-func)
-(add-hook 'c++-mode-hook #'j-cc-fontify-constants-h)
-(add-hook 'c++-mode-hook #'j-setup-cpp-inactive-regions)
-(add-hook 'c++-mode-hook #'j-setup-preprocessor-highlight)
 (add-hook 'c++-mode-hook #'lsp-deferred)
 (add-hook 'c-mode-hook #'j-cc-mode-hook-func)
-(add-hook 'c-mode-hook #'j-cc-fontify-constants-h)
-(add-hook 'c-mode-hook #'j-setup-cpp-inactive-regions)
-(add-hook 'c-mode-hook #'j-setup-preprocessor-highlight)
 (add-hook 'c-mode-hook #'lsp-deferred)
 
 ;; irony配置
@@ -161,5 +92,108 @@
 ;; 基础设置
 (setq-default c-basic-offset 4
               tab-width 4)
+
+;; ============================================================================
+;; 宏展开功能
+;; ============================================================================
+
+;; 使用 C 预处理器展开整个文件的宏
+(defun j-preprocess-file ()
+  "使用 C 预处理器展开当前文件中的所有宏"
+  (interactive)
+  (let* ((file-name (buffer-file-name))
+         (output-buffer (get-buffer-create "*C Preprocessor Output*"))
+         (cpp-command (cond
+                       ((string-match "\\.cpp\\|\\." file-name) "g++ -E")
+                       ((string-match "\\.c\\'" file-name) "gcc -E")
+                       (t "cpp"))))
+    (if file-name
+        (progn
+          (shell-command (format "%s %s" cpp-command file-name) output-buffer)
+          (with-current-buffer output-buffer
+            (c-mode)
+            (goto-char (point-min)))
+          (display-buffer output-buffer))
+      (message "当前缓冲区没有关联的文件"))))
+
+;; 展开选中区域的宏
+(defun j-preprocess-region (start end)
+  "展开选中区域的宏"
+  (interactive "r")
+  (let* ((region-text (buffer-substring-no-properties start end))
+         (temp-file (make-temp-file "emacs-cpp-" nil ".c"))
+         (output-buffer (get-buffer-create "*Macro Expansion*")))
+    (with-temp-file temp-file
+      (insert region-text))
+    (shell-command (format "gcc -E %s" temp-file) output-buffer)
+    (with-current-buffer output-buffer
+      (c-mode)
+      (goto-char (point-min))
+      ;; 删除预处理器生成的行号信息
+      (while (re-search-forward "^# [0-9]+ \".*\".*$" nil t)
+        (delete-region (line-beginning-position) (1+ (line-end-position))))
+      (goto-char (point-min)))
+    (display-buffer output-buffer)
+    (delete-file temp-file)))
+
+;; 智能宏展开：尝试多种方法
+(defun j-smart-expand-macro ()
+  "智能宏展开：优先使用 LSP，否则使用预处理器"
+  (interactive)
+  (cond
+   ;; 如果有选中区域，展开选中区域
+   ((use-region-p)
+    (j-preprocess-region (region-beginning) (region-end)))
+   ;; 如果启用了 LSP，尝试展开光标处的宏
+   ((bound-and-true-p lsp-mode)
+    (condition-case err
+        (lsp-clangd-expand-macro)
+      (error 
+       (message "LSP 宏展开失败，尝试预处理器方法...")
+       (j-preprocess-file))))
+   ;; 否则展开整个文件
+   (t (j-preprocess-file))))
+
+;; 列出当前文件中的所有宏定义
+(defun j-list-macros-in-file ()
+  "列出当前文件中的所有宏定义"
+  (interactive)
+  (let ((macro-list '())
+        (output-buffer (get-buffer-create "*Macro Definitions*")))
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward "^[ \t]*#[ \t]*define[ \t]+\\([A-Za-z_][A-Za-z0-9_]*\\)" nil t)
+        (let ((macro-name (match-string 1))
+              (line-num (line-number-at-pos)))
+          (push (cons macro-name line-num) macro-list))))
+    (with-current-buffer output-buffer
+      (erase-buffer)
+      (insert "当前文件中的宏定义:\n")
+      (insert "==================\n\n")
+      (dolist (macro (reverse macro-list))
+        (insert (format "%-20s (第 %d 行)\n" (car macro) (cdr macro))))
+      (goto-char (point-min))
+      (read-only-mode 1))
+    (display-buffer output-buffer)))
+
+;; ============================================================================
+;; C++ 模式钩子
+;; ============================================================================
+
+(defun setup-cpp-mode ()
+  "C++ 模式的设置"
+  (setq lsp-enable-semantic-highlighting t)
+  
+  ;; 设置宏展开键绑定
+  (local-set-key (kbd "C-c m e") #'j-smart-expand-macro)
+  (local-set-key (kbd "C-c m f") #'j-preprocess-file) 
+  (local-set-key (kbd "C-c m r") #'j-preprocess-region)
+  (local-set-key (kbd "C-c m l") #'j-list-macros-in-file)
+  
+  ;; 启用 LSP
+  (lsp-deferred))
+
+(add-hook 'c-mode-hook #'setup-cpp-mode)
+(add-hook 'c++-mode-hook #'setup-cpp-mode)
 
 (provide 'cpp/cpp-config)
