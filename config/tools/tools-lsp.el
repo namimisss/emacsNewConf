@@ -25,6 +25,9 @@
 	;; 确保lens功能启用
 	lsp-lens-enable t                     ; 全局启用lens
 	lsp-lens-place-position 'above-line   ; lens显示在行上方
+	;; 启用语义高亮和宏定义置灰
+	lsp-semantic-tokens-enable t          ; 启用语义标记
+	lsp-enable-semantic-highlighting t    ; 启用语义高亮
 	)
   :config
   (lsp-enable-which-key-integration t)
@@ -44,6 +47,7 @@
   (lsp-ui-doc-position 'bottom)
   (lsp-ui-sideline-enable t)              ; 启用侧边栏
   (lsp-ui-sideline-show-hover t)          ; 显示悬停信息
+  (lsp-ui-sideline-show-diagnostics t)    ; 显示诊断信息
   (lsp-ui-sideline-show-code-actions nil) ; 关闭代码动作以减少干扰
   (lsp-ui-flycheck-enable t)
   (lsp-ui-flycheck-list-position 'right)
