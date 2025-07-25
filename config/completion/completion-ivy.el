@@ -76,19 +76,21 @@
 (use-package flx-ido
   :ensure t)
 
-(use-package ivy-posframe
-  :ensure t)
+;; 可选的 ivy 增强包（根据需要启用）
+;; (use-package ivy-posframe
+;;   :ensure t)
 
-(use-package all-the-icons-ivy
-  :ensure t)
+;; (use-package all-the-icons-ivy
+;;   :ensure t)
 
-(use-package ido-completing-read+
-  :ensure t)
+;; 移除不必要的 ido 相关包（已使用 ivy）
+;; (use-package ido-completing-read+
+;;   :ensure t)
 
-(use-package ido-sort-mtime
-  :ensure t)
+;; (use-package ido-sort-mtime
+;;   :ensure t)
 
-(use-package crm-custom
-  :ensure t)
+;; (use-package crm-custom
+;;   :ensure t)
 
 (provide 'completion-ivy)

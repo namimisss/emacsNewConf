@@ -5,6 +5,11 @@
 (setq gc-cons-threshold-original gc-cons-threshold)
 (setq gc-cons-threshold (* 1024 1024 100))
 
+;; 更多性能优化
+(setq package-enable-at-startup nil)
+(setq package-quickstart t)  ; Emacs 27+ 快速启动
+(setq use-package-hook-name-suffix nil)  ; 减少 hook 名称处理开销
+
 ;; 确保package系统已加载
 (require 'package)
 
@@ -25,6 +30,7 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+(setq use-package-expand-minimally t)  ; 减少宏展开开销
 
 ;; 启动完成后恢复垃圾回收设置
 (add-hook 'emacs-startup-hook

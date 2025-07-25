@@ -14,8 +14,9 @@
   :ensure t
   :custom (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
-(use-package all-the-icons
-  :ensure t)
+;; 移除 all-the-icons（与 nerd-icons 重复）
+;; (use-package all-the-icons
+;;   :ensure t)
 
 (use-package doom-modeline
   :ensure t

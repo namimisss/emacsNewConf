@@ -1,8 +1,9 @@
 ;; ui/interface.el - 界面配置
 
-(use-package ido
-  :config
-  (ido-mode 1))
+;; 禁用 ido（与 ivy 冲突）
+;; (use-package ido
+;;   :config
+;;   (ido-mode 1))
 
 (use-package ido-vertical-mode
   :ensure t

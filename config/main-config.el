@@ -25,6 +25,7 @@
 ;; 1. Base Configuration
 (require 'base-packages)  ; Package management
 (require 'base-basic)     ; Basic tools
+(require 'base-enhancements)  ; Modern editing enhancements
 
 ;; 2. UI Configuration
 (require 'ui-themes)      ; Themes
@@ -34,6 +35,7 @@
 (require 'completion-company)  ; Company completion
 (require 'completion-ivy)      ; Ivy completion
 ;; (require 'completion-vertico)  ; Vertico completion - conflicts with ivy, temporarily commented
+;; (require 'completion-modern)   ; Modern completion (consult + embark + orderless) - 可选，与ivy并存
 
 ;; 4. Tools Configuration
 (require 'tools-flycheck)   ; Syntax checking
@@ -47,11 +49,7 @@
 ;; Global key bindings
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
-;; multiple-cursors (if needed)
-;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+;; multiple-cursors - 已在 base-enhancements 中配置
 
 ;; hydra configuration
 (defhydra hydra-zoom (global-map "<f2>")

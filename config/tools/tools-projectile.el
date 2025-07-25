@@ -14,24 +14,45 @@
   (counsel-projectile-mode 1)
   (global-set-key (kbd "C-c p s g") 'counsel-projectile-grep))
 
-(use-package neotree
+;; 项目树形文件浏览器增强
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
+
+(use-package treemacs-icons-dired
+  :hook (dired-mode . treemacs-icons-dired-enable-once)
+  :ensure t)
+
+;; 保留 neotree 作为备选（可选使用）
+;; (use-package neotree
+;;   :ensure t
+;;   :config
+;;   ;; f8 to view tree structure of folder
+;;   (defun neotree-project-dir ()
+;;     "Open NeoTree using the git root."
+;;     (interactive)
+;;     (let ((project-dir (projectile-project-root))
+;;           (file-name (buffer-file-name)))
+;;       (neotree-toggle)
+;;       (if project-dir
+;;           (if (neo-global--window-exists-p)
+;;               (progn
+;;                 (neotree-dir project-dir)
+;;                 (neotree-find file-name)))
+;;         (message "Could not find git project root."))))
+;;   (global-set-key [f8] 'neotree-project-dir)
+;;   (setq projectile-switch-project-action 'neotree-projectile-action))
+
+;; Treemacs 替代配置
+(use-package treemacs
   :ensure t
+  :defer t
   :config
-  ;; f8 to view tree structure of folder
-  (defun neotree-project-dir ()
-    "Open NeoTree using the git root."
-    (interactive)
-    (let ((project-dir (projectile-project-root))
-          (file-name (buffer-file-name)))
-      (neotree-toggle)
-      (if project-dir
-          (if (neo-global--window-exists-p)
-              (progn
-                (neotree-dir project-dir)
-                (neotree-find file-name)))
-        (message "Could not find git project root."))))
-  (global-set-key [f8] 'neotree-project-dir)
-  (setq projectile-switch-project-action 'neotree-projectile-action))
+  (setq treemacs-width 30)
+  :bind
+  (:map global-map
+        ([f8] . treemacs)
+        ("C-x t t" . treemacs)))
 
 (use-package dashboard
   :ensure t
