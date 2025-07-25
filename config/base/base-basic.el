@@ -11,9 +11,9 @@
 (column-number-mode 1)                   ; 显示列号
 
 ;; 自动保存和备份设置
-(setq auto-save-default t)               ; 启用自动保存
-(setq make-backup-files t)               ; 启用备份文件
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup/")))
+;;(setq auto-save-default t)               ; 启用自动保存
+;;(setq make-backup-files t)               ; 启用备份文件
+;;(setq backup-directory-alist '(("." . "~/.emacs.d/backup/")))
 
 ;; 删除和选择增强
 (delete-selection-mode 1)                ; 选中文本后输入会替换

@@ -1,4 +1,4 @@
-;; languages/cpp/cpp-config.el - C++语言配置 (简化版本)
+;; languages/cpp/cpp-config.el - C++语言配置 (使用clangd，移除irony)
 
 ;; C++ 基础配置
 (require 'cc-mode)
@@ -26,45 +26,64 @@
   (setq modern-c++-literal-null-pointer t)
   (setq modern-c++-stl-cstdint t))
 
-(use-package irony
-  :ensure t)
-
-(use-package irony-eldoc
-  :ensure t)
-
-(use-package company-irony
-  :ensure t)
-
-(use-package company-irony-c-headers
-  :ensure t)
-
 (use-package rainbow-delimiters
   :ensure t)
 
-;; clangd配置
+;; 动态检测系统C++标准库路径的函数
+(defun j-get-system-include-paths ()
+  "动态获取系统的C++标准库路径"
+  (let ((output (shell-command-to-string "echo | g++ -v -x c++ - 2>&1 | sed -n '/^#include <\\.\\.\\.> search starts here:/,/^End of search list/p' | grep '^[[:space:]]\\+/' | sed 's/^[[:space:]]\\+//'")))
+    (seq-filter (lambda (path)
+                  (and path (not (string-empty-p path))))
+                (split-string output "\n" t))))
+
+;; clangd配置 - 自动发现标准库路径
 (with-eval-after-load 'lsp-mode
+  ;; clangd 参数配置 - 精简配置，让 clangd 自动发现标准库
   (setq lsp-clients-clangd-args '("-j=20"
                                   "--background-index"
                                   "--clang-tidy"
                                   "--completion-style=detailed"
-                                  "--header-insertion=never"
-                                  "--header-insertion-decorators=0"
-                                  "--log=verbose"
-                                  "--pch-storage=memory"))
+                                  "--header-insertion=iwyu"
+                                  "--log=error"
+                                  "--query-driver=/usr/bin/g++,/usr/bin/gcc,/usr/bin/c++,/usr/bin/clang++"
+                                  "--enable-config"))
   
-  ;; 强制LSP使用clangd而不是ccls
+  ;; 强制LSP使用clangd
   (setq lsp-clients-cc-providers '(clangd))
   (setq lsp-clients-clangd-executable "clangd")
   
   ;; 启用 clangd 的语义高亮功能
-  (setq lsp-clangd-binary-path "clangd"))
+  (setq lsp-clangd-binary-path "clangd")
+  
+  ;; 让 clangd 自动检测编译数据库
+  (setq lsp-auto-guess-root t)
+  
+  ;; 动态设置初始化选项，包含系统路径
+  (defun j-clangd-initialization-options ()
+    "动态生成clangd初始化选项"
+    (let ((include-paths (j-get-system-include-paths)))
+      `(:compilationDatabasePath "."
+        :fallbackFlags ,(vconcat ["-std=c++17" "-Wall" "-Wextra"]
+                                (mapcar (lambda (path) (concat "-I" path)) include-paths))
+        :clangdFileStatus t)))
+  
+  ;; 设置动态初始化选项
+  (setq lsp-clients-clangd-initialization-options #'j-clangd-initialization-options)
+  
+  ;; 启用所有 clangd 特性
+  (setq lsp-clangd-binary-path "clangd"
+        lsp-clangd-version "18.0.0"))
 
-;; C/C++ hook函数
+;; 设置环境变量让 clangd 能找到正确的编译器
+(setenv "CC" "/usr/bin/gcc")
+(setenv "CXX" "/usr/bin/g++")
+
+;; C/C++ hook函数 (移除irony相关)
 (defun j-cc-mode-hook-func()
   (rainbow-delimiters-mode)
   (demangle-mode)
   (modern-c++-font-lock-mode)
-  (irony-mode)
   (hs-minor-mode))
 
 ;; 添加hook
@@ -72,22 +91,6 @@
 (add-hook 'c++-mode-hook #'lsp-deferred)
 (add-hook 'c-mode-hook #'j-cc-mode-hook-func)
 (add-hook 'c-mode-hook #'lsp-deferred)
-
-;; irony配置
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-(add-hook 'irony-mode-hook #'irony-eldoc)
-
-;; company-irony
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-
-(eval-after-load 'company
-  '(add-to-list
-    'company-backends '(company-irony-c-headers company-irony)))
-
-;; company cmake
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-cmake))
 
 ;; 基础设置
 (setq-default c-basic-offset 4
@@ -195,5 +198,32 @@
 
 (add-hook 'c-mode-hook #'setup-cpp-mode)
 (add-hook 'c++-mode-hook #'setup-cpp-mode)
+
+;; ============================================================================
+;; clangd 编译数据库生成辅助函数
+;; ============================================================================
+
+(defun j-generate-compile-commands ()
+  "为当前项目生成 compile_commands.json"
+  (interactive)
+  (let ((project-root (lsp-workspace-root)))
+    (if project-root
+        (let ((cmake-dir (file-name-as-directory (expand-file-name "build" project-root)))
+              (has-cmake (file-exists-p (expand-file-name "CMakeLists.txt" project-root))))
+          (cond
+           ;; CMake 项目
+           (has-cmake
+            (unless (file-directory-p cmake-dir)
+              (make-directory cmake-dir))
+            (let ((default-directory cmake-dir))
+              (shell-command "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..")
+              (when (file-exists-p "compile_commands.json")
+                (copy-file "compile_commands.json" 
+                          (expand-file-name "compile_commands.json" project-root) t)
+                (message "已生成 compile_commands.json"))))
+           ;; 其他项目类型
+           (t
+            (message "当前项目不是 CMake 项目，请手动配置编译数据库"))))
+      (message "未找到项目根目录"))))
 
 (provide 'cpp/cpp-config)

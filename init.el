@@ -37,8 +37,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(cmake-mode-cmake-executable "/usr/bin/cmake")
- '(package-selected-packages
-   '(company-irony-c-headers company-irony irony-eldoc irony modern-cpp-font-lock disaster demangle cmake-mode use-package))
+ '(package-selected-packages nil)
  '(python-indent-offset 4)
  '(pyvenv-workon "sys"))
 (custom-set-faces
