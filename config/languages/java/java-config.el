@@ -16,4 +16,4 @@
 (with-eval-after-load 'project
   (add-to-list 'project-find-functions 'projectile-project-find-function))
 
-(provide 'java/java-config)
+(provide 'java-config)

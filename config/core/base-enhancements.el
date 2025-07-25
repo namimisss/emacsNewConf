@@ -1,4 +1,6 @@
-;; base/enhancements.el - 现代化编辑增强功能
+;; =============================================================================
+;; config/core/base-enhancements.el - 现代化编辑增强功能
+;; =============================================================================
 
 ;; 智能选择扩展
 (use-package expand-region
@@ -84,5 +86,63 @@
   :ensure t
   :bind (("M-i" . change-inner)
          ("M-o" . change-outer)))
+
+;; 基础工具包
+(use-package magit
+  :ensure t)
+
+(use-package smartparens
+  :ensure t
+  :config
+  (require 'smartparens-config)
+  (smartparens-global-mode 1)
+  (show-smartparens-global-mode 1))
+
+(use-package which-key
+  :ensure t
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 1))
+
+(use-package ace-window
+  :ensure t
+  :bind ("C-x o" . ace-window))
+
+(use-package recentf
+  :ensure t
+  :config
+  (recentf-mode 1)
+  (setq recentf-max-saved-items 50)
+  (setq recentf-max-menu-items 15))
+
+(use-package ag
+  :ensure t)
+
+(use-package avy
+  :ensure t)
+
+(use-package helpful
+  :commands (helpful-callable helpful-variable helpful-command helpful-key)
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
+(use-package diff-hl
+  :ensure t
+  :config
+  (global-diff-hl-mode))
+
+(use-package auto-highlight-symbol
+  :ensure t)
+
+(use-package protobuf-mode
+  :ensure t)
 
 (provide 'base-enhancements) 

@@ -226,4 +226,4 @@
             (message "当前项目不是 CMake 项目，请手动配置编译数据库"))))
       (message "未找到项目根目录"))))
 
-(provide 'cpp/cpp-config)
+(provide 'cpp-config)

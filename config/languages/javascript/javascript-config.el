@@ -6,4 +6,4 @@
   (define-key tern-mode-keymap (kbd "M-.") nil)
   (define-key tern-mode-keymap (kbd "M-,") nil))
 
-(provide 'javascript/javascript-config)
+(provide 'javascript-config)
