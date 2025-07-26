@@ -34,6 +34,9 @@
 ;; 4. JavaScript语言配置
 (require 'javascript-config)
 
+;; 5. CMake构建系统配置
+(require 'cmake-config)
+
 ;; 提供语言配置入口
 (provide 'languages-config)
 

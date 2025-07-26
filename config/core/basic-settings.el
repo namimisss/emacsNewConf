@@ -90,24 +90,24 @@
 ;; 文件和备份设置
 ;; =============================================================================
 
-;; 备份文件设置
-(setq make-backup-files t)                    ; 启用备份
-(setq backup-directory-alist 
-      '(("." . "~/.emacs.d/backups/")))       ; 备份目录
-(setq backup-by-copying t)                    ; 通过复制备份
-(setq delete-old-versions t)                  ; 删除旧版本
-(setq kept-new-versions 6)                    ; 保留新版本数
-(setq kept-old-versions 2)                    ; 保留旧版本数
-(setq version-control t)                      ; 版本控制
+;; 备份文件设置 - 已禁用
+(setq make-backup-files nil)                  ; 禁用备份
+(setq auto-save-default nil)                  ; 禁用自动保存
 
-;; 自动保存设置
-(setq auto-save-default t)                    ; 启用自动保存
-(setq auto-save-timeout 20)                   ; 20秒后自动保存
-(setq auto-save-interval 200)                 ; 200个字符后自动保存
+;; 以下设置已注释，因为备份功能已禁用
+;; (setq backup-directory-alist 
+;;       '(("." . "~/.emacs.d/backups/")))       ; 备份目录
+;; (setq backup-by-copying t)                    ; 通过复制备份
+;; (setq delete-old-versions t)                  ; 删除旧版本
+;; (setq kept-new-versions 6)                    ; 保留新版本数
+;; (setq kept-old-versions 2)                    ; 保留旧版本数
+;; (setq version-control t)                      ; 版本控制
+;; (setq auto-save-timeout 20)                   ; 20秒后自动保存
+;; (setq auto-save-interval 200)                 ; 200个字符后自动保存
 
-;; 创建备份目录
-(unless (file-directory-p "~/.emacs.d/backups/")
-  (make-directory "~/.emacs.d/backups/" t))
+;; 备份目录创建也不再需要
+;; (unless (file-directory-p "~/.emacs.d/backups/")
+;;   (make-directory "~/.emacs.d/backups/" t))
 
 ;; =============================================================================
 ;; 搜索和替换设置

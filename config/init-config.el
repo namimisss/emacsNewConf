@@ -119,10 +119,7 @@
 (defun my-fallback-tools-config ()
   "工具配置的回退配置"
   (message "🔧 应用工具回退配置...")
-  ;; 基本的文件管理
-  (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-  (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
-  ;; 基本的编辑辅助
+  ;; 基本的编辑辅助（备份功能已在 basic-settings.el 中禁用）
   (electric-pair-mode 1)
   (save-place-mode 1))
 
