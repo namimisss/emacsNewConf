@@ -2479,7 +2479,7 @@ This function is meant to be used as a single-use toggle added to
 
 
 )
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/transient-20250701.1223/transient-autoloads.el")(load-true-file-name load-file-name))
+(let* ((load-file-name "/home/fish/.emacs.d/elpa/transient-20250724.1634/transient-autoloads.el")(load-true-file-name load-file-name))
 
 
 
@@ -4174,47 +4174,6 @@ icon.")
 
 
 )
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/neotree-20250703.2202/neotree-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(autoload 'neotree-find "neotree" "\
-Quick select node which specified PATH in NeoTree.
-If path is nil and no buffer file name, then use DEFAULT-PATH,
-
-(fn &optional PATH DEFAULT-PATH)" t)
-(autoload 'neotree-projectile-action "neotree" "\
-Integration with `Projectile'.
-
-Usage:
-    (setq projectile-switch-project-action 'neotree-projectile-action).
-
-When running `projectile-switch-project' (C-c p p), `neotree' will change root
-automatically." t)
-(autoload 'neotree-toggle "neotree" "\
-Toggle show the NeoTree window." t)
-(autoload 'neotree-show "neotree" "\
-Show the NeoTree window." t)
-(autoload 'neotree-hide "neotree" "\
-Close the NeoTree window." t)
-(autoload 'neotree-dir "neotree" "\
-Show the NeoTree window, and change root to PATH.
-
-(fn PATH)" t)
-(defalias 'neotree 'neotree-show "\
-Show the NeoTree window.")
-(register-definition-prefixes "neotree" '("neo" "off-p"))
-
-
-(provide 'neotree-autoloads)
-
-
-)
 (let* ((load-file-name "/home/fish/.emacs.d/elpa/multiple-cursors-20250210.1813/multiple-cursors-autoloads.el")(load-true-file-name load-file-name))
 
 
@@ -4606,22 +4565,6 @@ Modern-C++-Font-Lock mode.
 
 
 )
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/memoize-20200103.2036/memoize-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(register-definition-prefixes "memoize" '("defmemoize" "memoize"))
-
-
-(provide 'memoize-autoloads)
-
-
-)
 (let* ((load-file-name "/home/fish/.emacs.d/elpa/markdown-mode-20250720.1156/markdown-mode-autoloads.el")(load-true-file-name load-file-name))
 
 
@@ -4818,7 +4761,7 @@ disabled.
 
 
 )
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/magit-section-20250724.731/magit-section-autoloads.el")(load-true-file-name load-file-name))
+(let* ((load-file-name "/home/fish/.emacs.d/elpa/magit-section-20250725.750/magit-section-autoloads.el")(load-true-file-name load-file-name))
 
 
 
@@ -4873,7 +4816,7 @@ with the variables' values as arguments, which were recorded by
 
 
 )
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/magit-20250724.731/magit-autoloads.el")(load-true-file-name load-file-name))
+(let* ((load-file-name "/home/fish/.emacs.d/elpa/magit-20250725.750/magit-autoloads.el")(load-true-file-name load-file-name))
 
 
 
@@ -5076,7 +5019,7 @@ See info node `(magit)Debugging Tools' for more information." t)
 (define-advice Info-follow-nearest-node (:around (fn &optional fork) gitman) (let ((node (Info-get-token (point) "\\*note[ 
 	]+" "\\*note[ 
 	]+\\([^:]*\\):\\(:\\|[ 
-	]*(\\)?"))) (if (and node (string-match "^(gitman)\\(.+\\)" node)) (pcase magit-view-git-manual-method ('info (funcall fn fork)) ('man (require 'man) (man (match-string 1 node))) ('woman (require 'woman) (woman (match-string 1 node))) (_ (user-error "Invalid value for `magit-view-git-manual-method'"))) (funcall fn fork))))
+	]*(\\)?"))) (if (and node (string-match "^(gitman)\\(.+\\)" node)) (pcase magit-view-git-manual-method ('info (funcall fn fork)) ('man (require 'man) (man (match-string-no-properties 1 node))) ('woman (require 'woman) (woman (match-string-no-properties 1 node))) (_ (user-error "Invalid value for `magit-view-git-manual-method'"))) (funcall fn fork))))
 (define-advice org-man-export (:around (fn link description format) gitman) (if (and (eq format 'texinfo) (string-prefix-p "git" link)) (string-replace "%s" link "
 @ifinfo
 @ref{%s,,,gitman,}.
@@ -8898,48 +8841,6 @@ disabled.
 
 
 )
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/ivy-posframe-20241023.258/ivy-posframe-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(defvar ivy-posframe-mode nil "\
-Non-nil if Ivy-Posframe mode is enabled.
-See the `ivy-posframe-mode' command
-for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `ivy-posframe-mode'.")
-(custom-autoload 'ivy-posframe-mode "ivy-posframe" nil)
-(autoload 'ivy-posframe-mode "ivy-posframe" "\
-Display ivy via posframe.
-
-This is a global minor mode.  If called interactively, toggle the
-`Ivy-Posframe mode' mode.  If the prefix argument is positive, enable
-the mode, and if it is zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
-mode if ARG is nil, omitted, or is a positive number.  Disable the mode
-if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate `(default-value \\='ivy-posframe-mode)'.
-
-The mode's hook is called both when the mode is enabled and when it is
-disabled.
-
-(fn &optional ARG)" t)
-(register-definition-prefixes "ivy-posframe" '("ivy-posframe-"))
-
-
-(provide 'ivy-posframe-autoloads)
-
-
-)
 (let* ((load-file-name "/home/fish/.emacs.d/elpa/ivy-hydra-20250329.1401/ivy-hydra-autoloads.el")(load-true-file-name load-file-name))
 
 
@@ -8969,182 +8870,6 @@ disabled.
 
 
 (provide 'ivy-avy-autoloads)
-
-
-)
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/irony-20231018.1915/irony-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(defvar irony-additional-clang-options nil "\
-Additional command line options to pass down to libclang.
-
-Please, do NOT use this variable to add header search paths, only
-additional warnings or compiler options.
-
-These compiler options will be prepended to the command line, in
-order to not override the value coming from a compilation
-database.")
-(custom-autoload 'irony-additional-clang-options "irony" t)
-(autoload 'irony-mode "irony" "\
-Minor mode for C, C++ and Objective-C, powered by libclang.
-
-This is a minor mode.  If called interactively, toggle the `Irony mode'
-mode.  If the prefix argument is positive, enable the mode, and if it is
-zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
-mode if ARG is nil, omitted, or is a positive number.  Disable the mode
-if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate the variable `irony-mode'.
-
-The mode's hook is called both when the mode is enabled and when it is
-disabled.
-
-(fn &optional ARG)" t)
-(autoload 'irony-version "irony" "\
-Return the version number of the file irony.el.
-
-If called interactively display the version in the echo area.
-
-(fn &optional SHOW-VERSION)" t)
-(autoload 'irony-server-kill "irony" "\
-Kill the running irony-server process, if any." t)
-(autoload 'irony-get-type "irony" "\
-Get the type of symbol under cursor." t)
-(register-definition-prefixes "irony" '("irony-"))
-
-
-
-(autoload 'irony-cdb-autosetup-compile-options "irony-cdb" nil t)
-(autoload 'irony-cdb-menu "irony-cdb" nil t)
-(register-definition-prefixes "irony-cdb" '("irony-cdb-"))
-
-
-
-(autoload 'irony-cdb-clang-complete "irony-cdb-clang-complete" "\
-
-
-(fn COMMAND &rest ARGS)")
-(register-definition-prefixes "irony-cdb-clang-complete" '("irony-cdb-clang-complete--"))
-
-
-
-(autoload 'irony-cdb-json "irony-cdb-json" "\
-
-
-(fn COMMAND &rest ARGS)")
-(autoload 'irony-cdb-json-add-compile-commands-path "irony-cdb-json" "\
-Add an out-of-source compilation database.
-
-Files below the PROJECT-ROOT directory will use the JSON
-Compilation Database as specified by COMPILE-COMMANDS-PATH.
-
-The JSON Compilation Database are often generated in the build
-directory. This functions helps mapping out-of-source build
-directories to project directory.
-
-(fn PROJECT-ROOT COMPILE-COMMANDS-PATH)" t)
-(autoload 'irony-cdb-json-select "irony-cdb-json" "\
-Select CDB to use with a prompt.
-
-It is useful when you have several CDBs with the same project
-root.
-
-The completion function used internally is `completing-read' so
-it could easily be used with other completion functions by
-temporarily using a let-bind on `completing-read-function'. Or
-even helm by enabling `helm-mode' before calling the function." t)
-(autoload 'irony-cdb-json-select-most-recent "irony-cdb-json" "\
-Select CDB that is most recently modified." t)
-(register-definition-prefixes "irony-cdb-json" '("irony-cdb-json--"))
-
-
-
-(autoload 'irony-cdb-libclang "irony-cdb-libclang" "\
-
-
-(fn COMMAND &rest ARGS)")
-(register-definition-prefixes "irony-cdb-libclang" '("irony-cdb-libclang--"))
-
-
-
-(autoload 'irony-completion-at-point "irony-completion")
-(register-definition-prefixes "irony-completion" '("irony-"))
-
-
-
-(register-definition-prefixes "irony-diagnostics" '("irony-diagnostics-"))
-
-
-
-(register-definition-prefixes "irony-iotask" '("irony-iotask-"))
-
-
-
-(register-definition-prefixes "irony-snippet" '("irony-snippet-"))
-
-
-(provide 'irony-autoloads)
-
-
-)
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/irony-eldoc-20200622.2214/irony-eldoc-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(autoload 'irony-eldoc "irony-eldoc" "\
-Eldoc support in irony-mode.
-
-eldoc is a built-in Emacs mode for displaying documentation about
-a symbol or function call at point in the message buffer (see
-`eldoc-mode').
-
-To use:
-
-- Enable the minor mode `irony-eldoc', as well as
-  `eldoc-mode'. For an example, place point on top of a symbol,
-  or inside a function call.
-
-- It is easiest to add `irony-eldoc' to `irony-mode-hook', if you
-  already have `irony-mode' set up.
-
-Notes:
-
-- Sometimes the information `irony-eldoc' uses can go out of
-  date. In that case, try calling `irony-eldoc-reset'.
-
-This is a minor mode.  If called interactively, toggle the `Irony-Eldoc
-mode' mode.  If the prefix argument is positive, enable the mode, and if
-it is zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
-mode if ARG is nil, omitted, or is a positive number.  Disable the mode
-if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate the variable `irony-eldoc'.
-
-The mode's hook is called both when the mode is enabled and when it is
-disabled.
-
-(fn &optional ARG)" t)
-(register-definition-prefixes "irony-eldoc" '("irony-eldoc-"))
-
-
-(provide 'irony-eldoc-autoloads)
 
 
 )
@@ -9214,142 +8939,6 @@ disabled.
 
 
 (provide 'ido-vertical-mode-autoloads)
-
-
-)
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/ido-sort-mtime-20171121.859/ido-sort-mtime-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(defvar ido-sort-mtime-mode nil "\
-Non-nil if Ido-Sort-Mtime mode is enabled.
-See the `ido-sort-mtime-mode' command
-for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `ido-sort-mtime-mode'.")
-(custom-autoload 'ido-sort-mtime-mode "ido-sort-mtime" nil)
-(autoload 'ido-sort-mtime-mode "ido-sort-mtime" "\
-Sort files in Ido's file list by modification time.
-
-This is a global minor mode.  If called interactively, toggle the
-`Ido-Sort-Mtime mode' mode.  If the prefix argument is positive, enable
-the mode, and if it is zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
-mode if ARG is nil, omitted, or is a positive number.  Disable the mode
-if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate `(default-value \\='ido-sort-mtime-mode)'.
-
-The mode's hook is called both when the mode is enabled and when it is
-disabled.
-
-(fn &optional ARG)" t)
-(register-definition-prefixes "ido-sort-mtime" '("ido-sort-mtime-"))
-
-
-(provide 'ido-sort-mtime-autoloads)
-
-
-)
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/ido-completing-read+-20240130.30/ido-completing-read+-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(defvar ido-cr+-minibuffer-depth -1 "\
-Minibuffer depth of the most recent ido-cr+ activation.
-
-If this equals the current minibuffer depth, then the minibuffer
-is currently being used by ido-cr+, and ido-cr+ features will be
-active. Otherwise, something else is using the minibuffer and
-ido-cr+ features will be deactivated to avoid interfering with
-the other command.
-
-This is set to -1 by default, since `(minibuffer-depth)' should
-never return this value.")
-(defvar ido-cr+-replace-completely nil "\
-If non-nil, replace `ido-completeing-read' completely with ido-cr+.
-
-Enabling this may interfere with or cause errors in other
-packages that use `ido-completing-read'. If you discover any such
-incompatibilities, please file a bug report at
-https://github.com/DarwinAwardWinner/ido-completing-read-plus/issues")
-(custom-autoload 'ido-cr+-replace-completely "ido-completing-read+" t)
-(defsubst ido-cr+-active nil "\
-Return non-nil if ido-cr+ is currently using the minibuffer." (>= ido-cr+-minibuffer-depth (minibuffer-depth)))
-(autoload 'ido-completing-read+ "ido-completing-read+" "\
-Ido-based method for reading from the minibuffer with completion.
-
-See `completing-read' for the meaning of the arguments.
-
-This function is a wrapper for `ido-completing-read' designed to
-be used as the value of `completing-read-function'. Importantly,
-it detects edge cases that ido cannot handle and uses normal
-completion for them.
-
-See `completing-read' for the meaning of the arguments.
-
-(fn PROMPT COLLECTION &optional PREDICATE REQUIRE-MATCH INITIAL-INPUT HIST DEF INHERIT-INPUT-METHOD)")
-(autoload 'ido-completing-read@ido-cr+-replace "ido-completing-read+" "\
-This advice allows ido-cr+ to completely replace `ido-completing-read'.
-
-See the varaible `ido-cr+-replace-completely' for more information.
-
-(fn ORIG-FUN &rest ARGS)")
-(advice-add 'ido-completing-read :around #'ido-completing-read@ido-cr+-replace)
-(autoload 'call-interactively@ido-cr+-record-current-command "ido-completing-read+" "\
-Let-bind the command being interactively called.
-
-See `ido-cr+-current-command' for more information.
-
-(fn ORIG-FUN COMMAND &rest ARGS)")
-(advice-add 'call-interactively :around #'call-interactively@ido-cr+-record-current-command)
-(defvar ido-ubiquitous-mode nil "\
-Non-nil if Ido-Ubiquitous mode is enabled.
-See the `ido-ubiquitous-mode' command
-for a description of this minor mode.
-Setting this variable directly does not take effect;
-either customize it (see the info node `Easy Customization')
-or call the function `ido-ubiquitous-mode'.")
-(custom-autoload 'ido-ubiquitous-mode "ido-completing-read+" nil)
-(autoload 'ido-ubiquitous-mode "ido-completing-read+" "\
-Use ido completion instead of standard completion almost everywhere.
-
-If this mode causes problems for a function, you can customize
-when ido completion is or is not used by customizing
-`ido-cr+-disable-list'.
-
-This is a global minor mode.  If called interactively, toggle the
-`Ido-Ubiquitous mode' mode.  If the prefix argument is positive, enable
-the mode, and if it is zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
-mode if ARG is nil, omitted, or is a positive number.  Disable the mode
-if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate `(default-value \\='ido-ubiquitous-mode)'.
-
-The mode's hook is called both when the mode is enabled and when it is
-disabled.
-
-(fn &optional ARG)" t)
-(register-definition-prefixes "ido-completing-read+" '("ido-" "minibuf-eldef-update-minibuffer@ido-cr+-compat"))
-
-
-(provide 'ido-completing-read+-autoloads)
 
 
 )
@@ -10325,7 +9914,7 @@ disabled.
 
 
 )
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/expand-region-1.0.0/expand-region-autoloads.el")(load-true-file-name load-file-name))
+(let* ((load-file-name "/home/fish/.emacs.d/elpa/expand-region-20241217.1840/expand-region-autoloads.el")(load-true-file-name load-file-name))
 
 
 
@@ -10388,21 +9977,21 @@ before calling `er/expand-region' for the first time.
 
 (let ((loads (get 'expand-region 'custom-loads))) (if (member '"expand-region-custom" loads) nil (put 'expand-region 'custom-loads (cons '"expand-region-custom" loads)) (put 'tools 'custom-loads (cons 'expand-region (get 'tools 'custom-loads)))))
 (defvar expand-region-preferred-python-mode 'python "\
-The name of your preferred python mode")
+The name of your preferred python mode.")
 (custom-autoload 'expand-region-preferred-python-mode "expand-region-custom" t)
 (defvar expand-region-guess-python-mode t "\
-If expand-region should attempt to guess your preferred python mode")
+If expand-region should attempt to guess your preferred python mode.")
 (custom-autoload 'expand-region-guess-python-mode "expand-region-custom" t)
 (defvar expand-region-autocopy-register "" "\
-If set to a string of a single character (try \"e\"), then the
-contents of the most recent expand or contract command will
-always be copied to the register named after that character.")
+Register to copy most recent expand or contract to.
+
+Activated when set to a string of a single character (for example, \"e\").")
 (custom-autoload 'expand-region-autocopy-register "expand-region-custom" t)
 (defvar expand-region-skip-whitespace t "\
-If expand-region should skip past whitespace on initial expansion")
+If expand-region should skip past whitespace on initial expansion.")
 (custom-autoload 'expand-region-skip-whitespace "expand-region-custom" t)
 (defvar expand-region-fast-keys-enabled t "\
-If expand-region should bind fast keys after initial expand/contract")
+If expand-region should bind fast keys after initial expand/contract.")
 (custom-autoload 'expand-region-fast-keys-enabled "expand-region-custom" t)
 (defvar expand-region-contract-fast-key "-" "\
 Key to use after an initial expand/contract to contract once more.")
@@ -10411,7 +10000,7 @@ Key to use after an initial expand/contract to contract once more.")
 Key to use after an initial expand/contract to undo.")
 (custom-autoload 'expand-region-reset-fast-key "expand-region-custom" t)
 (defvar expand-region-exclude-text-mode-expansions '(html-mode nxml-mode) "\
-List of modes which derive from `text-mode' for which text mode expansions are not appropriate.")
+List of modes derived from `text-mode' to exclude from text mode expansions.")
 (custom-autoload 'expand-region-exclude-text-mode-expansions "expand-region-custom" t)
 (defvar expand-region-smart-cursor nil "\
 Defines whether the cursor should be placed intelligently after expansion.
@@ -11620,58 +11209,6 @@ Setup post initialization hooks unless a command line argument is provided.")
 
 
 )
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/crm-custom-20160117.6/crm-custom-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(defvar crm-custom-mode nil "\
-Non-nil if Crm-Custom mode is enabled.
-See the `crm-custom-mode' command
-for a description of this minor mode.")
-(custom-autoload 'crm-custom-mode "crm-custom" nil)
-(autoload 'crm-custom-mode "crm-custom" "\
-Use `completing-read-function' in `completing-read-multiple'.
-
-When this mode is enabled, `completing-read-multiple' will work
-by calling `completing-read' repeatedly until it receives an
-empty string, and returning all the values read in this way. This
-is useful because it will use `completing-read-function' to do
-completion, so packages like `ido-ubiquitous' that offer an
-alternative completion system will now work in
-`completing-read-multiple'. (Remember that in ido, you must enter
-an empty string by pressing `C-j', since RET simply selects the
-first completion.)
-
-Note that `crm-separator' is purely cosmetic when this mode is
-enabled. It cannot actually be used as a separator.
-
-This is a global minor mode.  If called interactively, toggle the
-`Crm-Custom mode' mode.  If the prefix argument is positive, enable the
-mode, and if it is zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
-mode if ARG is nil, omitted, or is a positive number.  Disable the mode
-if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate `(default-value \\='crm-custom-mode)'.
-
-The mode's hook is called both when the mode is enabled and when it is
-disabled.
-
-(fn &optional ARG)" t)
-(register-definition-prefixes "crm-custom" '("crm-custom-separator"))
-
-
-(provide 'crm-custom-autoloads)
-
-
-)
 (let* ((load-file-name "/home/fish/.emacs.d/elpa/counsel-20250329.1401/counsel-autoloads.el")(load-true-file-name load-file-name))
 
 
@@ -12717,54 +12254,6 @@ kind; otherwise they are returned in the order that they appear in the file.
 
 
 )
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/company-irony-c-headers-20151018.909/company-irony-c-headers-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(autoload 'company-irony-c-headers "company-irony-c-headers" "\
-Company backend for C/C++ header files.  Taking COMMAND ARG IGNORED.
-
-(fn COMMAND &optional ARG &rest IGNORED)" t)
-(register-definition-prefixes "company-irony-c-headers" '("company-irony-c-headers-"))
-
-
-(provide 'company-irony-c-headers-autoloads)
-
-
-)
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/company-irony-20190124.2346/company-irony-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(autoload 'company-irony "company-irony" "\
-
-
-(fn COMMAND &optional ARG &rest IGNORED)" t)
-(autoload 'company-irony-setup-begin-commands "company-irony" "\
-Include irony trigger commands to `company-begin-commands'.
-
-This allow completion to be automatically triggered after member
-accesses (obj.|, obj->|, ...).
-
-This may be useful to company < `0.8.4', newer version of company
-include these commands by default.")
-(register-definition-prefixes "company-irony" '("company-irony-"))
-
-
-(provide 'company-irony-autoloads)
-
-
-)
 (let* ((load-file-name "/home/fish/.emacs.d/elpa/company-box-20240320.921/company-box-autoloads.el")(load-true-file-name load-file-name))
 
 
@@ -12953,82 +12442,6 @@ provided.
 
 
 )
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/all-the-icons-20250527.927/all-the-icons-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(autoload 'all-the-icons-icon-for-dir "all-the-icons" "\
-Get the formatted icon for DIR.
-ARG-OVERRIDES should be a plist containining `:height',
-`:v-adjust' or `:face' properties like in the normal icon
-inserting functions.
-
-Note: You want chevron, please use `all-the-icons-icon-for-dir-with-chevron'.
-
-(fn DIR &rest ARG-OVERRIDES)")
-(autoload 'all-the-icons-icon-for-file "all-the-icons" "\
-Get the formatted icon for FILE.
-ARG-OVERRIDES should be a plist containining `:height',
-`:v-adjust' or `:face' properties like in the normal icon
-inserting functions.
-
-(fn FILE &rest ARG-OVERRIDES)")
-(autoload 'all-the-icons-icon-for-mode "all-the-icons" "\
-Get the formatted icon for MODE.
-ARG-OVERRIDES should be a plist containining `:height',
-`:v-adjust' or `:face' properties like in the normal icon
-inserting functions.
-
-(fn MODE &rest ARG-OVERRIDES)")
-(autoload 'all-the-icons-icon-for-url "all-the-icons" "\
-Get the formatted icon for URL.
-If an icon for URL isn't found in `all-the-icons-url-alist', a globe is used.
-ARG-OVERRIDES should be a plist containining `:height',
-`:v-adjust' or `:face' properties like in the normal icon
-inserting functions.
-
-(fn URL &rest ARG-OVERRIDES)")
-(autoload 'all-the-icons-install-fonts "all-the-icons" "\
-Helper function to download and install the latests fonts based on OS.
-When PFX is non-nil, ignore the prompt and just install
-
-(fn &optional PFX)" t)
-(autoload 'all-the-icons-insert "all-the-icons" "\
-Interactive icon insertion function.
-When Prefix ARG is non-nil, insert the propertized icon.
-When FAMILY is non-nil, limit the candidates to the icon set matching it.
-
-(fn &optional ARG FAMILY)" t)
-(register-definition-prefixes "all-the-icons" '("all-the-icons-"))
-
-
-(provide 'all-the-icons-autoloads)
-
-
-)
-(let* ((load-file-name "/home/fish/.emacs.d/elpa/all-the-icons-ivy-20190508.1803/all-the-icons-ivy-autoloads.el")(load-true-file-name load-file-name))
-
-
-
-(add-to-list 'load-path (or (and load-file-name (directory-file-name (file-name-directory load-file-name))) (car load-path)))
-
-
-
-
-(autoload 'all-the-icons-ivy-setup "all-the-icons-ivy" "\
-Set ivy's display transformers to show relevant icons next to the candidates.")
-(register-definition-prefixes "all-the-icons-ivy" '("all-the-icons-"))
-
-
-(provide 'all-the-icons-ivy-autoloads)
-
-
-)
 (let* ((load-file-name "/home/fish/.emacs.d/elpa/ag-20201031.2202/ag-autoloads.el")(load-true-file-name load-file-name))
 
 
@@ -13145,37 +12558,34 @@ Kill all `ag-mode' buffers other than the current buffer." t)
                      request rainbow-mode rainbow-delimiters quickrun
                      pyvenv protobuf-mode prescient goto-chg evil
                      powerline powerline-evil pos-tip popup nerd-icons
-                     neotree multiple-cursors monokai-theme
-                     modern-cpp-font-lock memoize markdown-mode
-                     marginalia llama magit-section magit lsp-mode
-                     lsp-ui lsp-treemacs bui lsp-docker dap-mode
-                     lsp-java lsp-ivy language-id ivy-rich
-                     ivy-prescient ivy-posframe ivy-hydra ivy-avy
-                     irony irony-eldoc inheritenv ido-vertical-mode
-                     ido-sort-mtime ido-completing-read+ hungry-delete
-                     highlight-indentation highlight-indent-guides
-                     elisp-refs helpful fuzzy frame-local format-all
-                     flyspell-correct flyspell-correct-ivy flycheck
-                     flycheck-pos-tip flycheck-popup-tip flx flx-ido
-                     expand-region evil-nerd-commenter company elpy
-                     doom-modeline disaster dired-hacks-utils
-                     dired-subtree diff-hl demangle-mode dashboard
-                     darkokai-theme crm-custom counsel
+                     multiple-cursors monokai-theme
+                     modern-cpp-font-lock markdown-mode marginalia
+                     llama magit-section magit lsp-mode lsp-ui
+                     lsp-treemacs bui lsp-docker dap-mode lsp-java
+                     lsp-ivy language-id ivy-rich ivy-prescient
+                     ivy-hydra ivy-avy inheritenv ido-vertical-mode
+                     hungry-delete highlight-indentation
+                     highlight-indent-guides elisp-refs helpful fuzzy
+                     frame-local format-all flyspell-correct
+                     flyspell-correct-ivy flycheck flycheck-pos-tip
+                     flycheck-popup-tip flx flx-ido expand-region
+                     evil-nerd-commenter company elpy doom-modeline
+                     disaster dired-hacks-utils dired-subtree diff-hl
+                     demangle-mode dashboard darkokai-theme counsel
                      counsel-projectile consult consult-lsp
-                     company-irony-c-headers company-irony company-box
-                     change-inner auto-highlight-symbol amx
-                     all-the-icons all-the-icons-ivy ag)
+                     company-box change-inner auto-highlight-symbol
+                     amx ag)
         package-activated-list)))
 (progn
   (require 'info) (info-initialize)
   (setq Info-directory-list
         (append
          '("/home/fish/.emacs.d/elpa/company-20250426.1319"
-           "/home/fish/.emacs.d/elpa/magit-20250724.731"
-           "/home/fish/.emacs.d/elpa/magit-section-20250724.731"
+           "/home/fish/.emacs.d/elpa/magit-20250725.750"
+           "/home/fish/.emacs.d/elpa/magit-section-20250725.750"
            "/home/fish/.emacs.d/elpa/evil-20250318.1816"
            "/home/fish/.emacs.d/elpa/ivy-20250417.1209"
-           "/home/fish/.emacs.d/elpa/transient-20250701.1223"
+           "/home/fish/.emacs.d/elpa/transient-20250724.1634"
            "/home/fish/.emacs.d/elpa/dash-20250312.1307"
            "/home/fish/.emacs.d/elpa/with-editor-20250724.843")
          Info-directory-list)))
