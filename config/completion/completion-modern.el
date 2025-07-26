@@ -1,3 +1,17 @@
+;;; completion-modern.el ---   -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 
+
+;;; Code:
+
 ;; completion/modern.el - 现代化补全系统配置
 
 ;; 增强搜索和导航
@@ -144,3 +158,4 @@
   (completion-category-overrides '((file (styles partial-completion)))))
 
 (provide 'completion-modern) 
+;;; completion-modern.el ends here

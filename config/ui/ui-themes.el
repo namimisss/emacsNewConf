@@ -1,3 +1,17 @@
+;;; ui-themes.el ---   -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 
+
+;;; Code:
+
 ;; ui/themes.el - 主题配置
 
 (use-package solarized-theme
@@ -33,3 +47,5 @@
   :ensure t)
 
 (provide 'ui-themes)
+
+;;; ui-themes.el ends here

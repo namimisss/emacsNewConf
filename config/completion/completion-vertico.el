@@ -1,3 +1,17 @@
+;;; completion-vertico.el ---   -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 
+
+;;; Code:
+
 ;; completion/vertico.el - Vertico补全配置
 
 (use-package vertico
@@ -31,3 +45,5 @@
   :ensure t)
 
 (provide 'completion-vertico)
+
+;;; completion-vertico.el ends here

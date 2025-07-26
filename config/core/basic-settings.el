@@ -1,3 +1,21 @@
+;;; basic-settings.el --- 基础Emacs设置  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration, settings
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 这个文件包含不依赖任何外部包的基础Emacs设置，包括：
+;; - 启动优化
+;; - 界面设置
+;; - 编辑行为配置
+;; - 文件处理设置
+
+;;; Code:
+
 ;; =============================================================================
 ;; config/core/basic-settings.el - 基础Emacs设置
 ;; =============================================================================
@@ -157,4 +175,6 @@
 (setq use-dialog-box nil)                     ; 不使用对话框
 (setq inhibit-startup-screen t)               ; 不显示启动屏幕
 
-(provide 'basic-settings) 
+(provide 'basic-settings)
+
+;;; basic-settings.el ends here 

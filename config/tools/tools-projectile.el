@@ -1,3 +1,17 @@
+;;; tools-projectile.el ---   -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 
+
+;;; Code:
+
 ;; tools/projectile.el - 项目管理配置
 
 (use-package projectile
@@ -66,3 +80,5 @@
   (dashboard-setup-startup-hook))
 
 (provide 'tools-projectile)
+
+;;; tools-projectile.el ends here

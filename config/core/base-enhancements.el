@@ -1,3 +1,17 @@
+;;; base-enhancements.el --- config/core/base-enhancements.el现代化编辑增强功能  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; config/core/base-enhancements.el现代化编辑增强功能
+
+;;; Code:
+
 ;; =============================================================================
 ;; config/core/base-enhancements.el - 现代化编辑增强功能
 ;; =============================================================================
@@ -146,3 +160,4 @@
   :ensure t)
 
 (provide 'base-enhancements) 
+;;; base-enhancements.el ends here

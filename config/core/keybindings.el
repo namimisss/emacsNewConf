@@ -1,3 +1,17 @@
+;;; keybindings.el --- config/core/keybindings.el全局快捷键配置  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; config/core/keybindings.el全局快捷键配置
+
+;;; Code:
+
 ;; =============================================================================
 ;; config/core/keybindings.el - 全局快捷键配置
 ;; =============================================================================
@@ -155,3 +169,4 @@
   (global-set-key (kbd "<f8>") 'dired))
 
 (provide 'keybindings) 
+;;; keybindings.el ends here

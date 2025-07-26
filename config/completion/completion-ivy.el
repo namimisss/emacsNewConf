@@ -1,4 +1,20 @@
-;; completion/ivy.el - Ivy补全配置
+;;; completion-ivy.el --- Ivy补全配置  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: completion, convenience
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; Ivy 补全系统配置，包括：
+;; - Swiper 搜索工具
+;; - Ivy 补全框架
+;; - Counsel 增强命令
+;; - 相关扩展包配置
+
+;;; Code:
 
 (use-package swiper
   :ensure t)
@@ -94,3 +110,5 @@
 ;;   :ensure t)
 
 (provide 'completion-ivy)
+
+;;; completion-ivy.el ends here

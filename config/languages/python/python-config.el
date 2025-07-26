@@ -1,3 +1,17 @@
+;;; python-config.el ---   -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 
+
+;;; Code:
+
 ;; languages/python/python-config.el - Python语言配置
 
 ;; Python 基础设置
@@ -15,3 +29,5 @@
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules)))
 
 (provide 'python-config)
+
+;;; python-config.el ends here

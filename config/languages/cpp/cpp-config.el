@@ -1,3 +1,17 @@
+;;; cpp-config.el --- C++语言配置  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: languages, cpp, c++
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; C++语言配置 (使用clangd，移除irony)
+
+;;; Code:
+
 ;; languages/cpp/cpp-config.el - C++语言配置 (使用clangd，移除irony)
 
 ;; C++ 基础配置
@@ -227,3 +241,5 @@
       (message "未找到项目根目录"))))
 
 (provide 'cpp-config)
+
+;;; cpp-config.el ends here

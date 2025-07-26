@@ -1,3 +1,17 @@
+;;; completion-config.el --- 补全系统配置模块入口  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: completion, configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 此文件是completion目录下所有配置的统一入口
+
+;;; Code:
+
 ;; =============================================================================
 ;; config/completion/completion-config.el - 补全系统配置模块入口
 ;; =============================================================================
@@ -16,4 +30,6 @@
 ;; (require 'completion-modern)
 
 ;; 提供completion配置入口
-(provide 'completion-config) 
+(provide 'completion-config)
+
+;;; completion-config.el ends here

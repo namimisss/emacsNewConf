@@ -1,4 +1,19 @@
-;; tools/flycheck.el - Flycheck语法检查配置
+;;; tools-flycheck.el --- Flycheck语法检查配置  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: tools, convenience
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; Flycheck 语法检查配置，包括：
+;; - 全局 Flycheck 模式
+;; - Flycheck 扩展包
+;; - 快捷键绑定
+
+;;; Code:
 
 (use-package flycheck
   :ensure t
@@ -28,3 +43,5 @@
 (global-set-key (kbd "C-c f v") 'flycheck-verify-setup)
 
 (provide 'tools-flycheck)
+
+;;; tools-flycheck.el ends here

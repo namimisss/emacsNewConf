@@ -1,3 +1,17 @@
+;;; java-config.el ---   -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 
+
+;;; Code:
+
 ;; languages/java/java-config.el - Java语言配置
 
 (use-package lsp-java 
@@ -17,3 +31,5 @@
   (add-to-list 'project-find-functions 'projectile-project-find-function))
 
 (provide 'java-config)
+
+;;; java-config.el ends here

@@ -1,3 +1,21 @@
+;;; init-config.el --- 配置系统入口文件  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: init, configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 这是 Emacs 配置系统的主入口文件，负责：
+;; - 版本检查
+;; - 模块加载管理
+;; - 错误处理和回退配置
+;; - 诊断功能
+
+;;; Code:
+
 ;; =============================================================================
 ;; config/init-config.el - 配置系统入口文件
 ;; =============================================================================
@@ -223,4 +241,6 @@
     (my-load-configuration)
   (my-load-minimal-config))
 
-(provide 'init-config) 
+(provide 'init-config)
+
+;;; init-config.el ends here 

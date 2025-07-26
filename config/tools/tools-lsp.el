@@ -1,3 +1,17 @@
+;;; tools-lsp.el ---   -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 
+
+;;; Code:
+
 ;; tools/lsp.el - LSP配置
 
 (use-package lsp-mode
@@ -80,3 +94,5 @@
   :after (lsp-mode))
 
 (provide 'tools-lsp)
+
+;;; tools-lsp.el ends here

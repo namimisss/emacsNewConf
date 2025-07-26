@@ -1,3 +1,17 @@
+;;; languages-config.el --- 语言配置模块入口  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: languages, programming, configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 此文件是languages目录下所有配置的统一入口
+
+;;; Code:
+
 ;; =============================================================================
 ;; config/languages/languages-config.el - 语言配置模块入口  
 ;; =============================================================================
@@ -8,17 +22,19 @@
   (dolist (lang-dir '("cpp" "java" "python" "javascript"))
     (add-to-list 'load-path (expand-file-name lang-dir languages-dir))))
 
-;; 1. C++语言配置 (包含clangd设置)
+;; 1. C++语言配置
 (require 'cpp-config)
 
-;; 2. Java语言配置  
-(require 'java-config)
-
-;; 3. Python语言配置
+;; 2. Python语言配置
 (require 'python-config)
+
+;; 3. Java语言配置  
+(require 'java-config)
 
 ;; 4. JavaScript语言配置
 (require 'javascript-config)
 
-;; 提供languages配置入口
+;; 提供语言配置入口
 (provide 'languages-config)
+
+;;; languages-config.el ends here

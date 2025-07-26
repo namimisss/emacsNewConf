@@ -1,4 +1,19 @@
-;; completion/company.el - Company补全配置
+;;; completion-company.el --- Company补全配置  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: completion, convenience
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; Company 补全系统配置，包括：
+;; - YASnippet 代码模板支持
+;; - Company 自动补全配置
+;; - Company-box 界面增强
+
+;;; Code:
 
 ;; YASnippet配置 - 提供代码模板功能
 (use-package yasnippet
@@ -57,3 +72,5 @@
   (setq company-box-icons-alist 'company-box-icons-all-the-icons))
 
 (provide 'completion-company)
+
+;;; completion-company.el ends here

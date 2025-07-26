@@ -1,3 +1,17 @@
+;;; ui-interface.el ---   -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024
+
+;; Author: User
+;; Keywords: configuration
+;; Version: 1.0.0
+
+;;; Commentary:
+
+;; 
+
+;;; Code:
+
 ;; ui/interface.el - 界面配置
 
 ;; 禁用 ido（与 ivy 冲突）
@@ -26,3 +40,5 @@
   (marginalia-mode))
 
 (provide 'ui-interface)
+
+;;; ui-interface.el ends here
