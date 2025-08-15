@@ -22,27 +22,18 @@
 ;; 此文件包含不依赖任何外部包的基础Emacs设置
 
 ;; 启动性能优化
-(setq gc-cons-threshold-original gc-cons-threshold)
-(setq gc-cons-threshold (* 1024 1024 100))  ; 100MB
+;;(setq gc-cons-threshold-original gc-cons-threshold)
+;;(setq gc-cons-threshold (* 1024 1024 100))  ; 100MB
 
 ;; 启动完成后恢复垃圾回收设置
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold gc-cons-threshold-original)
-            (message "🚀 Emacs启动完成，耗时 %.2f 秒，垃圾回收 %d 次"
-                     (float-time (time-subtract after-init-time before-init-time))
-                     gcs-done)))
-
 ;; =============================================================================
 ;; 界面设置
 ;; =============================================================================
 
 ;; 隐藏不必要的界面元素
 (menu-bar-mode -1)                       ; 隐藏菜单栏
-(when (fboundp 'tool-bar-mode)
-  (tool-bar-mode -1))                    ; 隐藏工具栏
-(when (fboundp 'scroll-bar-mode)
-  (scroll-bar-mode -1))                  ; 隐藏滚动条
+(tool-bar-mode -1)                    ; 隐藏工具栏
+(scroll-bar-mode -1)                  ; 隐藏滚动条
 
 ;; 显示设置
 (global-display-line-numbers-mode 1)     ; 显示行号
@@ -50,6 +41,7 @@
 (show-paren-mode 1)                      ; 高亮匹配括号
 (setq show-paren-delay 0)               ; 立即高亮括号
 (setq show-paren-style 'parenthesis)    ; 只高亮括号本身
+(global-hl-line-mode t)
 
 ;; 标题栏显示完整路径
 (setq frame-title-format
@@ -63,7 +55,6 @@
 
 ;; 基础编辑行为
 (delete-selection-mode 1)                ; 选中文本后输入会替换
-(setq-default truncate-lines t)          ; 不自动换行
 (setq-default indent-tabs-mode nil)      ; 使用空格而不是tab
 (setq-default tab-width 4)               ; tab宽度为4
 (setq-default c-basic-offset 4)          ; C语言缩进为4
@@ -123,16 +114,16 @@
 ;; =============================================================================
 
 ;; IO性能优化
-(setq read-process-output-max (* 1024 1024)) ; 1MB
-(setq process-adaptive-read-buffering nil)    ; 禁用自适应读缓冲
+;;(setq read-process-output-max (* 1024 1024)) ; 1MB
+;;(setq process-adaptive-read-buffering nil)    ; 禁用自适应读缓冲
 
 ;; 减少不必要的UI更新
-(setq redisplay-dont-pause t)                 ; 不暂停重绘
-(setq fast-but-imprecise-scrolling t)         ; 快速但不精确的滚动
+;;(setq redisplay-dont-pause t)                 ; 不暂停重绘
+;;(setq fast-but-imprecise-scrolling t)         ; 快速但不精确的滚动
 
 ;; 字体锁定优化
-(setq jit-lock-defer-time 0.05)              ; 延迟字体锁定
-(setq jit-lock-stealth-time 1)               ; 隐形字体锁定时间
+;;(setq jit-lock-defer-time 0.05)              ; 延迟字体锁定
+;;(setq jit-lock-stealth-time 1)               ; 隐形字体锁定时间
 
 ;; =============================================================================
 ;; 其他实用设置
@@ -166,15 +157,7 @@
 (global-auto-revert-mode 1)                   ; 全局自动刷新
 (setq auto-revert-verbose nil)                ; 静默刷新
 (setq global-auto-revert-non-file-buffers t)  ; 刷新非文件缓冲区
-
-;; 保存位置
-(save-place-mode 1)                           ; 记住光标位置
-
-;; 禁用不必要的功能
-(setq use-file-dialog nil)                    ; 不使用文件对话框
-(setq use-dialog-box nil)                     ; 不使用对话框
 (setq inhibit-startup-screen t)               ; 不显示启动屏幕
-
 (provide 'basic-settings)
 
 ;;; basic-settings.el ends here 
