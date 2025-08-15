@@ -16,16 +16,31 @@
 ;;; Code:
 
 ;; Tern - JavaScript代码补全和分析
-(use-package tern
-  :ensure t
-  :config
-  ;; 移除默认键绑定，避免与xref冲突
-  (define-key tern-mode-keymap (kbd "M-.") nil)
-  (define-key tern-mode-keymap (kbd "M-,") nil))
 
-;; JavaScript模式钩子
-(add-hook 'js-mode-hook (lambda () (tern-mode t)))
-(add-hook 'javascript-mode-hook (lambda () (tern-mode t)))
+(use-package js2-mode
+  :ensure t
+  :mode (("\\.js\\'" . js2-mode)
+         ("\\.jsx\\'" . js2-jsx-mode))
+  :config
+  (setq js2-basic-offset 2
+        js2-bounce-indent-p nil)
+  (setq js2-highlight-level 2)
+  (setq js2-mode-show-parse-errors t)
+  )
+
+(use-package js2-refactor
+  :ensure t
+  :hook (js2-mode . js2-refactor-mode)
+  :config
+  )
+
+(use-package prettier-js
+  :ensure t
+  :hook ((js2-mode . prettier-js-mode)
+         )
+  :config
+  )
+
 
 (provide 'javascript-config)
 
