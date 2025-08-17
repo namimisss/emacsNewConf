@@ -27,7 +27,7 @@
 (require 'base-enhancements)
 
 ;; 4. 快捷键配置
-(require 'keybindings)
+;;(require 'keybindings)
 
 ;; 提供核心配置入口
 (provide 'core-config)

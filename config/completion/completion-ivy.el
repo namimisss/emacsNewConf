@@ -19,6 +19,9 @@
 (use-package swiper
   :ensure t)
 
+(use-package counsel
+  :ensure t)
+
 (use-package ivy
   :ensure t
   :diminish
@@ -45,21 +48,14 @@
   (global-set-key (kbd "C-c j") 'counsel-git-grep)
   (global-set-key (kbd "C-c k") 'counsel-ag)
   (global-set-key (kbd "C-x l") 'counsel-locate)
-  (global-set-key (kbd "C-S-o") 'counsel-rhythmbox))
+  (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+)
 
 (use-package ivy-rich
   :ensure t
   :after ivy
   :init
   (ivy-rich-mode 1))
-
-(use-package counsel
-  :ensure t
-  :bind (("C-x b" . 'counsel-switch-buffer)
-	 :map minibuffer-local-map
-	 ("C-r" . 'counsel-minibuffer-history))
-  :config
-  (counsel-mode 1))
 
 (use-package ivy-hydra
   :ensure t)
@@ -78,7 +74,9 @@
   (ivy-prescient-mode 1))
 
 (use-package amx
-  :ensure t)
+  :ensure t
+  :config
+  (amx-mode 1))
 
 (use-package wgrep
   :ensure t)
@@ -86,11 +84,11 @@
 (use-package fuzzy
   :ensure t)
 
-(use-package flx
-  :ensure t)
+;; (use-package flx
+;;   :ensure t)
 
-(use-package flx-ido
-  :ensure t)
+;; (use-package flx-ido
+;;   :ensure t)
 
 ;; 可选的 ivy 增强包（根据需要启用）
 ;; (use-package ivy-posframe
@@ -110,5 +108,9 @@
 ;;   :ensure t)
 
 (provide 'completion-ivy)
+
+(use-package marginalia
+ :init
+ (marginalia-mode))
 
 ;;; completion-ivy.el ends here
