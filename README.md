@@ -284,3 +284,5 @@
 
 ### 安装工具
 aspell
+npm install -g typescript-language-server typescript
+npm install -g prettier eslint

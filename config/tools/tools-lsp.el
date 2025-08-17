@@ -1,4 +1,4 @@
-;;; tools-lsp.el ---   -*- lexical-binding: t; -*-
+;;; tools-lsp.el --- LSP配置  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024
 
@@ -8,7 +8,7 @@
 
 ;;; Commentary:
 
-;; 
+;; LSP Mode 配置文件
 
 ;;; Code:
 
@@ -23,6 +23,9 @@
 	 (c-mode . lsp-deferred)
 	 (c++-mode . lsp-deferred)
 	 (java-mode . lsp-deferred)
+	 (js2-mode . lsp-deferred)              ; JavaScript 支持
+	 (typescript-mode . lsp-deferred)       ; TypeScript 支持
+	 (json-mode . lsp-deferred)             ; JSON 支持
 	 (lsp-mode . lsp-lens-mode)
 	 (java-mode-hook lsp-java-boot-lens-mode)
 	 (sh-mode . lsp)
