@@ -43,10 +43,11 @@
 (defun fish-load-configuration ()
   "Load config"
   (require 'core-config)
-  (require 'ui-config)
-  (require 'completion-config)
-  (require 'tools-config)
-  (require 'languages-config))
+;;  (require 'ui-config)
+ (require 'completion-config)
+ (require 'tools-config)
+ (require 'languages-config)
+  )
 (defun fish-load-minimal-config ())
 
 (if (fish-check-emacs-version)

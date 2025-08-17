@@ -46,15 +46,15 @@
          (html-mode . rainbow-mode)))
 
 ;; 缩进指示线
-(use-package highlight-indent-guides
-  :ensure t
-  :hook (prog-mode . highlight-indent-guides-mode)
-  :custom
-  (highlight-indent-guides-method 'character)
-  (highlight-indent-guides-character ?\|)
-  (highlight-indent-guides-auto-odd-face-perc 15)
-  (highlight-indent-guides-auto-even-face-perc 15)
-  (highlight-indent-guides-auto-character-face-perc 20))
+;;(use-package highlight-indent-guides
+;;  :ensure t
+;;  :hook (prog-mode . highlight-indent-guides-mode)
+;;  :custom
+;;  (highlight-indent-guides-method 'character)
+;;  (highlight-indent-guides-character ?\|)
+;;  (highlight-indent-guides-auto-odd-face-perc 15)
+;;  (highlight-indent-guides-auto-even-face-perc 15)
+;;  (highlight-indent-guides-auto-character-face-perc 20))
 
 ;; 增强的 undo 系统
 (use-package undo-tree
@@ -148,16 +148,16 @@
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 
+;; diff-hl-mode highlights uncommitted changes on the side of the window, allows you to jump between and revert them selectively.
 (use-package diff-hl
   :ensure t
   :config
   (global-diff-hl-mode))
 
 (use-package auto-highlight-symbol
-  :ensure t)
-
-(use-package protobuf-mode
-  :ensure t)
+  :ensure t
+  :config
+  (global-auto-highlight-symbol-mode t))
 
 (provide 'base-enhancements) 
 ;;; base-enhancements.el ends here

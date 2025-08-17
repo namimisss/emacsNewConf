@@ -32,8 +32,8 @@
 
 ;; 隐藏不必要的界面元素
 (menu-bar-mode -1)                       ; 隐藏菜单栏
-(tool-bar-mode -1)                    ; 隐藏工具栏
-(scroll-bar-mode -1)                  ; 隐藏滚动条
+;;(tool-bar-mode -1)                    ; 隐藏工具栏
+;;(scroll-bar-mode -1)                  ; 隐藏滚动条
 
 ;; 显示设置
 (global-display-line-numbers-mode 1)     ; 显示行号

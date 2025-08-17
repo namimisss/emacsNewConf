@@ -38,9 +38,13 @@
 ;; =============================================================================
 
 ;; 配置包源 - 使用国内镜像提高下载速度
-(setq package-archives '(("gnu"   . "https://mirrors.ustc.edu.cn/elpa/gnu/")
-                         ("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
-                         ("org"   . "https://mirrors.ustc.edu.cn/elpa/org/")))
+;;(setq package-archives '(("gnu"   . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+;;                         ("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
+;;                         ("org"   . "https://mirrors.ustc.edu.cn/elpa/org/")))
+
+(setq package-archives '(("gnu"    . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("nongnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                         ("melpa"  . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 ;; 初始化包系统
 (package-initialize)

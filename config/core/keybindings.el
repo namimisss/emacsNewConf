@@ -1,4 +1,4 @@
-;;; keybindings.el --- config/core/keybindings.el全局快捷键配置  -*- lexical-binding: t; -*-
+;;; keybindings.el --- config/core/keybindings.el全局快捷键配置  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024
 
@@ -109,44 +109,6 @@
   ("s" split-window-below "水平分割")
   ("d" delete-window "删除窗口")
   ("o" delete-other-windows "只保留当前窗口"))
-
-;; =============================================================================
-;; 自定义函数快捷键
-;; =============================================================================
-
-(defun my-open-config-file ()
-  "快速打开配置文件"
-  (interactive)
-  (find-file (expand-file-name "config/init-config.el" user-emacs-directory)))
-
-(defun my-reload-config ()
-  "重新加载配置"
-  (interactive)
-  (load-file (expand-file-name "init.el" user-emacs-directory))
-  (message "配置已重新加载"))
-
-(defun my-open-scratch ()
-  "打开scratch缓冲区"
-  (interactive)
-  (switch-to-buffer "*scratch*"))
-
-;; 绑定自定义函数
-(global-set-key (kbd "C-c e c") 'my-open-config-file)  ; 打开配置
-(global-set-key (kbd "C-c e r") 'my-reload-config)     ; 重载配置
-(global-set-key (kbd "C-c e s") 'my-open-scratch)      ; 打开scratch
-
-;; =============================================================================
-;; 系统和调试快捷键
-;; =============================================================================
-
-(defun my-show-startup-time ()
-  "显示启动时间"
-  (interactive)
-  (message "Emacs启动时间: %.2f秒"
-           (float-time (time-subtract after-init-time before-init-time))))
-
-(global-set-key (kbd "C-c s t") 'my-show-startup-time) ; 显示启动时间
-(global-set-key (kbd "C-c s p") 'my-package-diagnosis) ; 包管理诊断
 
 ;; =============================================================================
 ;; 备用快捷键 (如果对应的包不存在，使用默认功能)

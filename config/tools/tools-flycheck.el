@@ -37,10 +37,10 @@
   :hook (flycheck-mode . flycheck-popup-tip-mode))
 
 ;; flycheck 键绑定
-(global-set-key (kbd "C-c f l") 'flycheck-list-errors)
-(global-set-key (kbd "C-c f n") 'flycheck-next-error)
-(global-set-key (kbd "C-c f p") 'flycheck-previous-error)
-(global-set-key (kbd "C-c f v") 'flycheck-verify-setup)
+;; (global-set-key (kbd "C-c f l") 'flycheck-list-errors)
+;; (global-set-key (kbd "C-c f n") 'flycheck-next-error)
+;; (global-set-key (kbd "C-c f p") 'flycheck-previous-error)
+;; (global-set-key (kbd "C-c f v") 'flycheck-verify-setup)
 
 (provide 'tools-flycheck)
 
