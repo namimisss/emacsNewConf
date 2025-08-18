@@ -24,9 +24,12 @@
 
 (use-package counsel-projectile
   :ensure t
+  :after (counsel projectile)
   :config
   (counsel-projectile-mode 1)
-  (global-set-key (kbd "C-c p s g") 'counsel-projectile-grep))
+;;  (global-set-key (kbd "C-c p s g") 'counsel-projectile-grep)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (setq counsel-projectile-find-file-matcher 'counsel--find-file-matcher))
 
 ;; 项目树形文件浏览器增强
 (use-package treemacs-projectile
