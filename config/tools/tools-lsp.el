@@ -24,7 +24,9 @@
 	 (c++-mode . lsp-deferred)
 	 (java-mode . lsp-deferred)
 	 (js2-mode . lsp-deferred)              ; JavaScript 支持
+	 (rjsx-mode . lsp-deferred)             ; React JSX 支持
 	 (typescript-mode . lsp-deferred)       ; TypeScript 支持
+	 (web-mode . lsp-deferred)              ; Vue/TSX/HTML 支持 (推荐用于Vue开发)
 	 (json-mode . lsp-deferred)             ; JSON 支持
 	 (lsp-mode . lsp-lens-mode)
 	 (java-mode-hook lsp-java-boot-lens-mode)

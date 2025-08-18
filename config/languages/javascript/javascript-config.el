@@ -19,10 +19,10 @@
 ;; JavaScript 基础配置
 ;; =============================================================================
 
+;; 注意：js2-mode 现在仅用于纯 JavaScript，JSX 文件由 rjsx-mode 处理
 (use-package js2-mode
   :ensure t
-  :mode (("\\.js\\'" . js2-mode)
-         ("\\.jsx\\'" . js2-jsx-mode))
+  :mode "\\.mjs\\'"  ; 仅处理 ES6 模块文件
   :hook ((js2-mode . lsp-deferred))  ; 启用 LSP
   :config
   (setq js2-basic-offset 2
@@ -43,7 +43,8 @@
 
 (use-package js2-refactor
   :ensure t
-  :hook (js2-mode . js2-refactor-mode)
+  :hook ((js2-mode . js2-refactor-mode)
+         (rjsx-mode . js2-refactor-mode))  ; 也为 rjsx-mode 启用重构功能
   :config
   (js2r-add-keybindings-with-prefix "C-c C-m"))
 
@@ -53,8 +54,7 @@
 
 (use-package typescript-mode
   :ensure t
-  :mode (("\\.ts\\'" . typescript-mode)
-         ("\\.tsx\\'" . typescript-mode))
+  :mode "\\.ts\\'"  ; 只处理 .ts 文件，.tsx 由 web-mode 处理
   :hook (typescript-mode . lsp-deferred)
   :config
   (setq typescript-indent-level 2))
@@ -70,6 +70,48 @@
   (setq json-reformat:indent-width 2))
 
 ;; =============================================================================
+;; React 支持
+;; =============================================================================
+
+;; React 代码片段和工具
+(use-package rjsx-mode
+  :ensure t
+  :mode (("\\.jsx\\'" . rjsx-mode)
+         ("\\.js\\'" . rjsx-mode))  ; 使用 rjsx-mode 替代 js2-mode 以获得更好的 JSX 支持
+  :hook (rjsx-mode . lsp-deferred)
+  :config
+  (setq js2-basic-offset 2
+        js2-bounce-indent-p nil
+        js2-highlight-level 2
+        js2-mode-show-parse-errors nil
+        js2-mode-show-strict-warnings nil)
+  
+  ;; React 特定的键绑定
+  (define-key rjsx-mode-map (kbd "M-.") 'lsp-find-definition)
+  (define-key rjsx-mode-map (kbd "M-,") 'lsp-find-references)
+  (define-key rjsx-mode-map (kbd "C-c C-r") 'lsp-rename))
+
+;; React 代码片段
+(use-package react-snippets
+  :ensure t
+  :after rjsx-mode)
+
+;; =============================================================================
+;; Vue 支持 - 使用 web-mode + Volar LSP (推荐方案)
+;; =============================================================================
+
+;; Vue.js 使用 web-mode - 同时支持 Vue 2 和 Vue 3
+;; 这种方案通过 Volar LSP 提供完整的 Vue 开发支持
+;; 
+;; 优势：
+;; 1. Vue 官方推荐的 Volar LSP
+;; 2. 同时支持 Vue 2 和 Vue 3
+;; 3. 更好的 TypeScript 集成
+;; 4. 不依赖第三方 Vue mode 包
+;;
+;; 注意：Vue 文件将由 web-mode 处理，并在下面的 web-mode 配置中设置
+
+;; =============================================================================
 ;; Web 模式 (HTML/CSS/JS混合)
 ;; =============================================================================
 
@@ -77,15 +119,32 @@
   :ensure t
   :mode (("\\.html\\'" . web-mode)
          ("\\.htm\\'" . web-mode)
-         ("\\.vue\\'" . web-mode)
-         ("\\.tsx\\'" . web-mode))  ; 移除 .jsx，让 js2-jsx-mode 处理
+         ("\\.vue\\'" . web-mode)   ; Vue 单文件组件 (Vue 2 & Vue 3)
+         ("\\.tsx\\'" . web-mode))  ; TypeScript JSX
+  :hook (web-mode . lsp-deferred)
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2
         web-mode-enable-auto-pairing t
         web-mode-enable-css-colorization t
-        web-mode-enable-current-element-highlight t))
+        web-mode-enable-current-element-highlight t
+        web-mode-enable-auto-closing t
+        web-mode-enable-auto-quoting t)
+  
+  ;; 文件类型特定配置
+  (add-to-list 'web-mode-content-types-alist '("jsx" . "\\.tsx\\'"))
+  (add-to-list 'web-mode-content-types-alist '("vue" . "\\.vue\\'"))
+  
+  ;; Vue 文件特定设置
+  (defun my-web-mode-vue-setup ()
+    "配置 web-mode 用于 Vue 开发"
+    (when (string-match-p "\\.vue\\'" (or buffer-file-name ""))
+      (setq-local web-mode-script-padding 0)
+      (setq-local web-mode-style-padding 0)
+      (setq-local web-mode-template-padding 0)))
+  
+  (add-hook 'web-mode-hook 'my-web-mode-vue-setup))
 
 ;; =============================================================================
 ;; 代码格式化和 Lint
@@ -94,9 +153,10 @@
 ;; Prettier - JavaScript 代码格式化
 (use-package prettier-js
   :ensure t
-  :hook ((js2-mode . prettier-js-mode)
+  :hook ((js2-mode . prettier-js-mode)      ; .mjs 文件支持
+         (rjsx-mode . prettier-js-mode)
          (typescript-mode . prettier-js-mode)
-         (web-mode . prettier-js-mode))
+         (web-mode . prettier-js-mode))     ; 包括 Vue、TSX、HTML
   :config
   (setq prettier-js-args '("--single-quote" 
                           "--trailing-comma" "es5"
@@ -106,8 +166,8 @@
   
   ;; 保存时自动格式化
   (defun my-js-format-on-save ()
-    "JavaScript 文件保存时自动使用 Prettier 格式化"
-    (when (and (derived-mode-p 'js2-mode 'typescript-mode)
+    "JavaScript/React/Vue 文件保存时自动使用 Prettier 格式化"
+    (when (and (derived-mode-p 'js2-mode 'rjsx-mode 'typescript-mode 'web-mode)
                (executable-find "prettier"))
       (prettier-js)))
   
@@ -151,11 +211,15 @@
 (with-eval-after-load 'js2-mode
   (define-key js2-mode-map (kbd "C-c C-f") 'my-eslint-fix-buffer))
 
+;; 在 rjsx-mode 中绑定快捷键
+(with-eval-after-load 'rjsx-mode
+  (define-key rjsx-mode-map (kbd "C-c C-f") 'my-eslint-fix-buffer))
+
 ;; 自动修复和格式化组合
 (defun my-js-format-and-lint ()
   "格式化并修复 JavaScript 代码"
   (interactive)
-  (when (derived-mode-p 'js2-mode 'typescript-mode)
+  (when (derived-mode-p 'js2-mode 'rjsx-mode 'typescript-mode 'web-mode)
     (if (executable-find "eslint")
         (my-eslint-fix-buffer)
       (prettier-js))))
@@ -169,8 +233,10 @@
 
 (use-package add-node-modules-path
   :ensure t
-  :hook ((js2-mode . add-node-modules-path)
-         (typescript-mode . add-node-modules-path)))
+  :hook ((js2-mode . add-node-modules-path)     ; .mjs 文件支持
+         (rjsx-mode . add-node-modules-path)
+         (typescript-mode . add-node-modules-path)
+         (web-mode . add-node-modules-path)))  ; 包括 Vue、TSX、HTML
 
 ;; =============================================================================
 ;; NPM 集成
@@ -178,8 +244,10 @@
 
 (use-package npm-mode
   :ensure t
-  :hook ((js2-mode . npm-mode)
-         (typescript-mode . npm-mode)))
+  :hook ((js2-mode . npm-mode)              ; .mjs 文件支持
+         (rjsx-mode . npm-mode)
+         (typescript-mode . npm-mode)
+         (web-mode . npm-mode)))           ; 包括 Vue、TSX、HTML
 
 
 (provide 'javascript-config)

@@ -283,6 +283,62 @@
 - 📚 部分插件可能需要额外的按键绑定配置
 
 ### 安装工具
-aspell
+
+#### 基础工具
+```bash
+sudo apt install aspell ripgrep
+
+C-c p s r    ; counsel-projectile-rg (超快文本搜索)
+C-c p s g    ; projectile-grep (您已配置的传统grep)
+C-c p s s    ; projectile-ag (如果需要可安装 silversearcher-ag)
+C-c p f
+
+```
+
+#### JavaScript/TypeScript/React/Vue 开发环境
+```bash
+# LSP 服务器
 npm install -g typescript-language-server typescript
+
+# 代码格式化和检查工具
 npm install -g prettier eslint
+
+# 或者使用Volar (Vue官方推荐，同时支持Vue 2和Vue 3)
+npm install -g @volar/vue-language-server
+
+# React 开发相关 (如果需要额外的检查规则)
+npm install -g eslint-plugin-react eslint-plugin-react-hooks
+```
+
+#### 支持的文件类型和模式说明
+- **JavaScript**: `.js` 文件 → `rjsx-mode` (支持JSX语法)
+- **React JSX**: `.jsx` 文件 → `rjsx-mode` 
+- **ES6 模块**: `.mjs` 文件 → `js2-mode` (纯JavaScript，无JSX)
+- **TypeScript**: `.ts` 文件 → `typescript-mode`
+- **TypeScript JSX**: `.tsx` 文件 → `web-mode` (配置为JSX模式)
+- **Vue.js**: `.vue` 文件 → `web-mode` + Volar LSP (同时支持Vue 2和Vue 3)
+- **JSON**: `.json` 文件 → `json-mode`
+- **HTML/CSS**: `.html`, `.htm` 文件 → `web-mode`
+
+> **注意**: 
+> - 现在 `.js` 和 `.jsx` 文件都使用 `rjsx-mode`，这样可以在普通JS文件中也支持JSX语法
+> - 如果您只想写纯JavaScript（不包含JSX），可以使用 `.mjs` 扩展名
+> - `.vue` 文件使用 `web-mode` + Volar LSP，同时支持Vue 2和Vue 3（包括Composition API、setup语法糖等）
+> - 所有模式都自动启用LSP支持，提供智能补全、错误检查等功能
+
+#### Vue.js 开发配置说明
+
+本配置采用 **web-mode + Volar LSP** 方案，具有以下优势：
+
+- ✅ **同时支持Vue 2和Vue 3**：无需切换配置
+- ✅ **官方支持**：Volar是Vue官方推荐的语言服务器
+- ✅ **完整TypeScript集成**：更好的类型检查和智能提示
+- ✅ **无第三方依赖**：不依赖社区维护的vue-mode包
+- ✅ **统一的web-mode**：同时处理HTML、CSS、JS、TSX、Vue
+
+**Volar LSP特性：**
+- 模板类型检查和智能提示
+- 组件props自动补全
+- Vue 3 Composition API完整支持
+- `<script setup>`语法糖支持
+- 跨文件的组件引用跳转
