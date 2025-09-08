@@ -158,11 +158,7 @@
          (typescript-mode . prettier-js-mode)
          (web-mode . prettier-js-mode))     ; 包括 Vue、TSX、HTML
   :config
-  (setq prettier-js-args '("--single-quote" 
-                          "--trailing-comma" "es5"
-                          "--semi" "true"
-                          "--tab-width" "2"
-                          "--print-width" "100"))
+  (setq prettier-js-args '())
   
   ;; 保存时自动格式化
   (defun my-js-format-on-save ()
