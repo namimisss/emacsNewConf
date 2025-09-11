@@ -1,0 +1,3 @@
+[submodule "treesit-grammars"]
+	path = treesit-grammars
+	url = https://github.com/sichuandeeplearning/treesit-grammars.git

@@ -28,6 +28,11 @@
 	 (typescript-mode . lsp-deferred)       ; TypeScript 支持
 	 (web-mode . lsp-deferred)              ; Vue/TSX/HTML 支持 (推荐用于Vue开发)
 	 (json-mode . lsp-deferred)             ; JSON 支持
+	 ;; Tree-sitter 模式支持
+	 (js-ts-mode . lsp-deferred)            ; JavaScript Tree-sitter
+	 (typescript-ts-mode . lsp-deferred)    ; TypeScript Tree-sitter (由Volar处理)
+	 (tsx-ts-mode . lsp-deferred)           ; TSX Tree-sitter (由Volar处理)
+	 (json-ts-mode . lsp-deferred)          ; JSON Tree-sitter
 	 (lsp-mode . lsp-lens-mode)
 	 (java-mode-hook lsp-java-boot-lens-mode)
 	 (sh-mode . lsp)
@@ -61,6 +66,66 @@
   (setq lsp-intelephense-multi-root nil) ; don't scan unnecessary projects
   (with-eval-after-load 'lsp-intelephense
     (setf (lsp--client-multi-root (gethash 'iph lsp-clients)) nil))
+  
+  ;; 智能LSP服务器选择：基于项目类型自动配置
+  (with-eval-after-load 'lsp-mode
+    ;; 关闭文件监听以提升性能
+    (setq lsp-enable-file-watchers nil
+          lsp-file-watch-threshold 2000)
+    
+    ;; 现代化项目类型检测
+    (defun my-is-vue-project ()
+      "检测当前是否为Vue项目"
+      (when-let ((root (lsp-workspace-root)))
+        (or (file-exists-p (expand-file-name "vue.config.js" root))
+            (file-exists-p (expand-file-name "vite.config.js" root))
+            (file-exists-p (expand-file-name "nuxt.config.js" root))
+            (and (file-exists-p (expand-file-name "package.json" root))
+                 (with-temp-buffer
+                   (insert-file-contents (expand-file-name "package.json" root))
+                   (goto-char (point-min))
+                   (re-search-forward "\"vue\"\\|\"@vue\"\\|\"nuxt\"" nil t))))))
+    
+    
+    ;; 简化的Volar配置：仅为Vue项目启用Take Over Mode
+    (when (executable-find "vue-language-server")
+      (lsp-register-client
+       (make-lsp-client
+        :new-connection (lsp-stdio-connection '("vue-language-server" "--stdio"))
+        :major-modes '(js-ts-mode typescript-ts-mode tsx-ts-mode web-mode)
+        :server-id 'volar-takeover
+        :priority 10
+        :activation-fn (lambda (&rest _) (my-is-vue-project))
+        :initialization-options
+        (lambda ()
+          (let ((ts-lib (or 
+                         ;; 优先使用项目本地的TypeScript
+                         (when-let ((root (lsp-workspace-root)))
+                           (let ((local-ts (expand-file-name "node_modules/typescript/lib/tsserverlibrary.js" root)))
+                             (when (file-exists-p local-ts) local-ts)))
+                         ;; 使用NVM全局TypeScript
+                         (let ((nvm-ts "~/.nvm/versions/node/v22.18.0/lib/node_modules/typescript/lib/tsserverlibrary.js"))
+                           (when (file-exists-p (expand-file-name nvm-ts)) (expand-file-name nvm-ts)))
+                         ;; 使用系统全局TypeScript
+                         (when-let ((global-ts (shell-command-to-string "npm root -g 2>/dev/null")))
+                           (let ((global-path (concat (string-trim global-ts) "/typescript/lib/tsserverlibrary.js")))
+                             (when (file-exists-p global-path) global-path))))))
+            `(:typescript
+              (:tsdk ,(file-name-directory ts-lib)
+               :preferences
+               (:includePackageJsonAutoImports "on"
+                :includeCompletionsForModuleExports t))
+              :vue
+              (:hybridMode nil)))))))
+    
+    ;; 标准TypeScript Language Server配置
+    (when (executable-find "typescript-language-server")
+      (setq lsp-clients-typescript-init-opts
+            '(:preferences
+              (:includePackageJsonAutoImports "on"
+               :includeCompletionsForModuleExports t
+               :includeCompletionsWithSnippetText t)))))
+  
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   ;; 添加一些有用的快捷键
   (define-key lsp-mode-map (kbd "C-c l r") 'lsp-find-references)
