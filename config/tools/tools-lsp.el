@@ -28,6 +28,11 @@
 	 (typescript-mode . lsp-deferred)       ; TypeScript 支持
 	 (web-mode . lsp-deferred)              ; Vue/TSX/HTML 支持 (推荐用于Vue开发)
 	 (json-mode . lsp-deferred)             ; JSON 支持
+	 ;; Tree-sitter 模式支持
+	 (js-ts-mode . lsp-deferred)            ; JavaScript Tree-sitter
+	 (typescript-ts-mode . lsp-deferred)    ; TypeScript Tree-sitter (由Volar处理)
+	 (tsx-ts-mode . lsp-deferred)           ; TSX Tree-sitter (由Volar处理)
+	 (json-ts-mode . lsp-deferred)          ; JSON Tree-sitter
 	 (lsp-mode . lsp-lens-mode)
 	 (java-mode-hook lsp-java-boot-lens-mode)
 	 (sh-mode . lsp)
@@ -61,6 +66,23 @@
   (setq lsp-intelephense-multi-root nil) ; don't scan unnecessary projects
   (with-eval-after-load 'lsp-intelephense
     (setf (lsp--client-multi-root (gethash 'iph lsp-clients)) nil))
+  
+  ;; 智能LSP服务器选择：基于项目类型自动配置
+  (with-eval-after-load 'lsp-mode
+    ;; 关闭文件监听以提升性能
+    (setq lsp-enable-file-watchers nil
+          lsp-file-watch-threshold 2000)
+    
+    ;; Vue/Volar 配置已移至 languages/javascript/volar-config.el
+    
+    ;; 标准TypeScript Language Server配置
+    (when (executable-find "typescript-language-server")
+      (setq lsp-clients-typescript-init-opts
+            '(:preferences
+              (:includePackageJsonAutoImports "on"
+               :includeCompletionsForModuleExports t
+               :includeCompletionsWithSnippetText t)))))
+  
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   ;; 添加一些有用的快捷键
   (define-key lsp-mode-map (kbd "C-c l r") 'lsp-find-references)

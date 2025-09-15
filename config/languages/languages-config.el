@@ -22,6 +22,7 @@
   (dolist (lang-dir '("cpp" "java" "python" "javascript"))
     (add-to-list 'load-path (expand-file-name lang-dir languages-dir))))
 
+;; 传统语言配置 (由 init-config.el 统一管理时使用)
 ;; 1. C++语言配置
 (require 'cpp-config)
 
