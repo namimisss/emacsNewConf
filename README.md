@@ -304,7 +304,7 @@ npm install -g typescript-language-server typescript
 npm install -g prettier eslint
 
 # 或者使用Volar (Vue官方推荐，同时支持Vue 2和Vue 3)
-npm install -g @volar/vue-language-server
+npm install -g @vue/language-server
 
 # React 开发相关 (如果需要额外的检查规则)
 npm install -g eslint-plugin-react eslint-plugin-react-hooks

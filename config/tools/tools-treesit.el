@@ -48,33 +48,19 @@
   ;; =============================================================================
   
   (defun treesit-install-from-local-package (language)
-    "从本地tar.gz包安装指定语言的Tree-sitter语法"
-    (let* ((package-file (treesit-get-language-package language))
-           (package-path (expand-file-name package-file treesit-local-packages-dir))
-           (temp-dir (make-temp-file "treesit-" t))
-           (install-path (expand-file-name (format "libtree-sitter-%s.so" language) treesit-install-dir)))
-      
-      (unless (file-exists-p package-path)
-        (error "未找到语言包: %s" package-path))
+    "检查指定语言的Tree-sitter语法是否已安装"
+    (let ((install-path (expand-file-name (format "libtree-sitter-%s.so" language) treesit-install-dir)))
       
       ;; 确保安装目录存在
       (unless (file-exists-p treesit-install-dir)
         (make-directory treesit-install-dir t))
       
-      ;; 解压包到临时目录
-      (let ((default-directory temp-dir))
-        (unless (zerop (call-process "tar" nil nil nil "-xzf" package-path))
-          (error "解压包失败: %s" package-path)))
-      
-      ;; 查找解压后的.so文件
-      (let ((so-files (directory-files temp-dir t "\\.so$")))
-        (if so-files
-            (progn
-              ;; 复制.so文件到安装目录
-              (copy-file (car so-files) install-path t)
-              (message "✅ %s 安装成功: %s" language install-path)
-              t)
-          (error "包中未找到.so文件: %s" package-path)))))
+      ;; 检查.so文件是否存在
+      (if (file-exists-p install-path)
+          (progn
+            (message "✅ %s 已安装: %s" language install-path)
+            t)
+        (error "未找到.so文件: %s" install-path))))
   
   (defun treesit-check-available-packages ()
     "检查本地可用的语言包"
