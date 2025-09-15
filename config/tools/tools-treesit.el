@@ -170,7 +170,6 @@
           (java-mode . java-ts-mode)
           (json-mode . json-ts-mode)
           (css-mode . css-ts-mode)
-          (yaml-mode . yaml-ts-mode)
           (sh-mode . bash-ts-mode)))
   
   ;; =============================================================================
@@ -213,7 +212,6 @@
                   c++-ts-mode-hook
                   java-ts-mode-hook
                   json-ts-mode-hook
-                  yaml-ts-mode-hook
                   css-ts-mode-hook
                   bash-ts-mode-hook))
     (add-hook mode #'setup-treesit-common))
