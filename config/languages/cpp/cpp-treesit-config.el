@@ -152,8 +152,8 @@
       (progn
         (call-process "clang-format" nil nil nil "-i" (buffer-file-name))
         (revert-buffer t t t)
-        (message "使用 clang-format 格式化完成"))
-    (message "请安装 clang-format")))
+        (message "Formatting completed with clang-format"))
+    (message "Please install clang-format")))
 
 ;; 保存时自动格式化（可选）
 (defun my-cpp-format-on-save ()
@@ -186,7 +186,7 @@
             (c++-ts-mode)  ; 使用 Tree-sitter 模式
             (goto-char (point-min)))
           (display-buffer output-buffer))
-      (message "当前缓冲区没有关联的文件"))))
+      (message "Current buffer has no associated file"))))
 
 ;; 展开选中区域的宏
 (defun my-preprocess-region (start end)
@@ -221,7 +221,7 @@
     (condition-case err
         (lsp-clangd-expand-macro)
       (error 
-       (message "LSP 宏展开失败，尝试预处理器方法...")
+       (message "LSP macro expansion failed, trying preprocessor method...")
        (my-preprocess-file))))
    ;; 否则展开整个文件
    (t (my-preprocess-file))))
@@ -302,11 +302,11 @@
               (when (file-exists-p "compile_commands.json")
                 (copy-file "compile_commands.json" 
                           (expand-file-name "compile_commands.json" project-root) t)
-                (message "已生成 compile_commands.json"))))
+                (message "Generated compile_commands.json"))))
            ;; 其他项目类型
            (t
-            (message "当前项目不是 CMake 项目，请手动配置编译数据库"))))
-      (message "未找到项目根目录"))))
+            (message "Current project is not a CMake project, please configure compilation database manually"))))
+      (message "Project root directory not found"))))
 
 ;; C++ 开发常用命令
 (defun my-cpp-run-current-file ()
@@ -372,7 +372,7 @@
     (with-temp-file source-file
       (insert (format "#include \"%s\"\n\n%s::%s() {\n    // 构造函数实现\n}\n\n%s::~%s() {\n    // 析构函数实现\n}\n" 
                       header-file class-name class-name class-name class-name)))
-    (message "C++ 类模板创建完成: %s.hpp 和 %s.cpp" class-name class-name)))
+    (message "C++ class template created: %s.hpp and %s.cpp" class-name class-name)))
 
 ;; 设置键绑定的函数
 (defun my-cpp-ts-setup-keybindings ()

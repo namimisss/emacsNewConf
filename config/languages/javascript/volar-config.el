@@ -92,7 +92,7 @@
         (let ((ts-lib (my-find-typescript-lib)))
           (if ts-lib
               (progn
-                (message "✓ 找到 TypeScript 库: %s" ts-lib)
+                (message "✓ Found TypeScript library: %s" ts-lib)
                 `(:typescript
                   (:tsdk ,(file-name-directory ts-lib)
                    :preferences
@@ -101,7 +101,7 @@
                   :vue
                   (:hybridMode nil)))
             (progn
-              (message "⚠️  未找到 TypeScript 库，使用默认配置")
+              (message "⚠️  TypeScript library not found, using default configuration")
               `(:vue (:hybridMode nil))))))))))
 
 ;; =============================================================================

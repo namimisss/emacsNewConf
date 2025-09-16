@@ -19,7 +19,7 @@
 
 ;; 检查 Tree-sitter 是否可用
 (when (treesit-available-p)
-  (message "✓ Tree-sitter 已初始化")
+  (message "✓ Tree-sitter initialized successfully")
   
   ;; =============================================================================
   ;; 语言安装和配置
@@ -58,7 +58,7 @@
       ;; 检查.so文件是否存在
       (if (file-exists-p install-path)
           (progn
-            (message "✅ %s 已安装: %s" language install-path)
+            (message "✅ %s installed: %s" language install-path)
             t)
         (error "未找到.so文件: %s" install-path))))
   
@@ -83,29 +83,29 @@
           (fail-count 0))
       
       (if (not available-packages)
-          (message "❌ 未找到可用的本地语言包")
+          (message "❌ No available local language packages found")
         
-        (message "🔍 检测到可用的语言包: %s" available-packages)
+        (message "🔍 Available language packages detected: %s" available-packages)
         
         (dolist (language available-packages)
           (cond
            ;; 已安装，跳过
            ((treesit-language-available-p language)
             (setq skip-count (1+ skip-count))
-            (message "⏩ %s 已安装，跳过" language))
+            (message "⏩ %s already installed, skipping" language))
            
            ;; 未安装，尝试安装
            (t
-            (message "📦 正在安装 %s..." language)
+            (message "📦 Installing %s..." language)
             (condition-case err
                 (progn
                   (treesit-install-from-local-package language)
                   (setq success-count (1+ success-count)))
               (error
                (setq fail-count (1+ fail-count))
-               (message "❌ %s 安装失败: %s" language (error-message-string err)))))))
+               (message "❌ %s installation failed: %s" language (error-message-string err)))))))
         
-        (message "🎉 本地包安装完成: %d 成功, %d 跳过, %d 失败" 
+        (message "🎉 Local package installation completed: %d successful, %d skipped, %d failed" 
                  success-count skip-count fail-count))))
   
   ;; =============================================================================
@@ -118,7 +118,7 @@
       (cond
        ;; 没有本地包
        ((not available-packages)
-        (message "ℹ️  未找到本地Tree-sitter语言包"))
+        (message "ℹ️  No local Tree-sitter language packages found"))
        
        ;; 有本地包，检查是否需要安装
        (t
@@ -130,13 +130,13 @@
           (cond
            ;; 有缺失的语言，自动安装
            (missing-languages
-            (message "🔄 检测到缺失的Tree-sitter语言: %s" missing-languages)
-            (message "📦 开始从本地包自动安装...")
+            (message "🔄 Missing Tree-sitter languages detected: %s" missing-languages)
+            (message "📦 Starting automatic installation from local packages...")
             (treesit-install-from-local))
            
            ;; 所有语言都已安装
            (t
-            (message "✅ Tree-sitter语言已就绪 (%d个)" (length available-packages)))))))))
+            (message "✅ Tree-sitter languages ready (%d languages)" (length available-packages)))))))))
   
   ;; 启动时自动检测和安装（无延迟）
   (add-hook 'emacs-startup-hook #'treesit-startup-check-and-install)
@@ -212,21 +212,21 @@
     (when (treesit-parser-list)
       (let ((node (treesit-node-at (point))))
         (if node
-            (message "节点类型: %s, 文本: %s"
+            (message "Node type: %s, text: %s"
                      (treesit-node-type node)
                      (treesit-node-text node))
-          (message "光标处没有 Tree-sitter 节点")))))
+          (message "No Tree-sitter node at cursor")))))
   
   (defun treesit-show-parser-info ()
     "显示当前缓冲区的 Tree-sitter 解析器信息"
     (interactive)
     (if (treesit-parser-list)
         (let ((parsers (treesit-parser-list)))
-          (message "当前缓冲区的解析器: %s"
+          (message "Current buffer parser: %s"
                    (mapconcat (lambda (parser)
                                 (format "%s" (treesit-parser-language parser)))
                               parsers ", ")))
-      (message "当前缓冲区没有 Tree-sitter 解析器")))
+      (message "Current buffer has no Tree-sitter parser")))
   
   ;; =============================================================================
   ;; 管理命令和键绑定
@@ -239,35 +239,35 @@
           (installed-count 0)
           (available-count 0))
       
-      (message "=== Tree-sitter 包状态 ===")
+      (message "=== Tree-sitter Package Status ===")
       
       (if (not available-packages)
-          (message "❌ 未找到本地语言包")
+          (message "❌ No local language packages found")
         
         (setq available-count (length available-packages))
         (dolist (lang available-packages)
           (when (treesit-language-available-p lang)
             (setq installed-count (1+ installed-count))))
         
-        (message "📦 本地可用包: %d" available-count)
-        (message "✅ 已安装语言: %d" installed-count)
-        (message "📋 可用语言: %s" available-packages)
+        (message "📦 Local available packages: %d" available-count)
+        (message "✅ Installed languages: %d" installed-count)
+        (message "📋 Available languages: %s" available-packages)
         
         (when (< installed-count available-count)
-          (message "💡 运行 M-x treesit-install-from-local 安装缺失语言")))))
+          (message "💡 Run M-x treesit-install-from-local to install missing languages")))))
   
   (defun treesit-list-supported-languages ()
     "列出所有支持的语言"
     (interactive)
     (if (boundp 'treesit-local-supported-languages)
         (progn
-          (message "=== 支持的Tree-sitter语言 ===")
+          (message "=== Supported Tree-sitter Languages ===")
           (dolist (lang-config treesit-local-supported-languages)
             (let ((lang (car lang-config))
                   (file (cadr lang-config))
                   (desc (caddr lang-config)))
               (message "%s: %s (%s)" lang file desc))))
-      (message "❌ 语言配置未加载")))
+      (message "❌ Language configuration not loaded")))
   
   ;; 键绑定
   (global-set-key (kbd "C-c t n") #'treesit-explore-node-at-point)
@@ -287,13 +287,13 @@
       (let ((start-time (current-time)))
         (treesit-buffer-root-node)
         (let ((elapsed (float-time (time-subtract (current-time) start-time))))
-          (message "Tree-sitter 解析耗时: %.3f 秒" elapsed)))))
+          (message "Tree-sitter parsing time: %.3f seconds" elapsed)))))
   
   (global-set-key (kbd "C-c t b") #'treesit-benchmark-parsing))
 
 ;; 如果 Tree-sitter 不可用的提示
 (unless (treesit-available-p)
-  (message "Tree-sitter 不可用。请确保使用 Emacs 29+ 并正确编译了 Tree-sitter 支持"))
+  (message "Tree-sitter unavailable. Please ensure you're using Emacs 29+ with proper Tree-sitter support compiled"))
 
 (provide 'tools-treesit)
 

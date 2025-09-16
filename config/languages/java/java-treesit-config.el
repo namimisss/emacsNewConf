@@ -75,7 +75,7 @@
   (interactive)
   (if (bound-and-true-p lsp-mode)
       (lsp-format-buffer)
-    (message "请启用 LSP 模式进行格式化")))
+    (message "Please enable LSP mode for formatting")))
 
 ;; 保存时自动格式化（可选）
 (defun my-java-format-on-save ()
@@ -161,7 +161,7 @@
   (cond
    ((file-exists-p "pom.xml") (my-java-maven-test))
    ((file-exists-p "build.gradle") (my-java-gradle-test))
-   (t (message "未检测到 Maven 或 Gradle 项目"))))
+   (t (message "No Maven or Gradle project detected"))))
 
 ;; 创建 Java 类
 (defun my-java-create-class (class-name package-name)
@@ -179,7 +179,7 @@
       (insert "    }\n")
       (insert "}\n"))
     (find-file file-path)
-    (message "Java 类创建完成: %s" file-path)))
+    (message "Java class created: %s" file-path)))
 
 ;; =============================================================================
 ;; Tree-sitter 特定增强
@@ -261,7 +261,7 @@
       (insert "mvn package\n")
       (insert "```\n"))
     
-    (message "Maven 项目创建完成: %s" base-dir)))
+    (message "Maven project created: %s" base-dir)))
 
 ;; =============================================================================
 ;; Java 键绑定配置
@@ -290,7 +290,7 @@
   (interactive)
   (if (bound-and-true-p lsp-mode)
       (lsp-describe-thing-at-point)
-    (message "请启用 LSP 模式查看文档")))
+    (message "Please enable LSP mode to view documentation")))
 
 ;; 设置键绑定的函数
 (defun my-java-ts-setup-keybindings ()
@@ -325,7 +325,7 @@
   (cond
    ((file-exists-p "pom.xml") (compile "mvn spring-boot:run"))
    ((file-exists-p "build.gradle") (compile "gradle bootRun"))
-   (t (message "未检测到 Spring Boot 项目"))))
+   (t (message "No Spring Boot project detected"))))
 
 (provide 'java-treesit-config)
 

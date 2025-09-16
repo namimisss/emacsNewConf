@@ -131,7 +131,7 @@
             (c-mode)
             (goto-char (point-min)))
           (display-buffer output-buffer))
-      (message "当前缓冲区没有关联的文件"))))
+      (message "Current buffer has no associated file"))))
 
 ;; 展开选中区域的宏
 (defun j-preprocess-region (start end)
@@ -166,7 +166,7 @@
     (condition-case err
         (lsp-clangd-expand-macro)
       (error 
-       (message "LSP 宏展开失败，尝试预处理器方法...")
+       (message "LSP macro expansion failed, trying preprocessor method...")
        (j-preprocess-file))))
    ;; 否则展开整个文件
    (t (j-preprocess-file))))
@@ -234,11 +234,11 @@
               (when (file-exists-p "compile_commands.json")
                 (copy-file "compile_commands.json" 
                           (expand-file-name "compile_commands.json" project-root) t)
-                (message "已生成 compile_commands.json"))))
+                (message "Generated compile_commands.json"))))
            ;; 其他项目类型
            (t
-            (message "当前项目不是 CMake 项目，请手动配置编译数据库"))))
-      (message "未找到项目根目录"))))
+            (message "Current project is not a CMake project, please configure compilation database manually"))))
+      (message "Project root directory not found"))))
 
 (provide 'cpp-config)
 

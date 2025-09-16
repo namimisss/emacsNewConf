@@ -42,10 +42,10 @@
              (file-directory-p treesit-dir)
              (> (length (directory-files treesit-dir nil "\\.so$")) 0))
         (progn
-          (message "✓ Tree-sitter 可用，检测到语法文件")
+          (message "✓ Tree-sitter available with grammar files detected")
           t)
       (progn
-        (message "○ Tree-sitter 不可用或无语法文件，使用传统配置")
+        (message "○ Tree-sitter unavailable or no grammar files, using traditional config")
         nil))))
 
 ;; =============================================================================
@@ -61,27 +61,23 @@
 
 (defun fish-load-treesitter-config ()
   "加载 Tree-sitter 增强配置"
-  (message "🚀 加载 Tree-sitter 配置...")
+  (message "🚀 Loading Tree-sitter configuration...")
   
   ;; 加载基础配置
   (require 'core-config)
   (require 'completion-config)
   
   ;; 加载 Tree-sitter 工具配置
-  (require 'tools-treesit)
-  (require 'tools-flycheck)
-  (require 'tools-lsp)
-  (require 'tools-projectile)
-  (require 'tools-misc)
+  (require 'tools-treesit-config)
   
   ;; 加载 Tree-sitter 语言配置
   (require 'languages-treesit-config)
   
-  (message "✓ Tree-sitter 配置加载完成"))
+  (message "✓ Tree-sitter configuration loaded successfully"))
 
 (defun fish-load-traditional-config ()
   "加载传统配置"
-  (message "📋 加载传统配置...")
+  (message "📋 Loading traditional configuration...")
   
   ;; 加载基础配置
   (require 'core-config)
@@ -91,13 +87,13 @@
   (require 'tools-config)
   (require 'languages-config)
   
-  (message "✓ 传统配置加载完成"))
+  (message "✓ Traditional configuration loaded successfully"))
 
 (defun fish-load-minimal-config ()
   "加载最小配置（版本不匹配时）"
-  (message "🔧 Emacs版本不匹配，加载最小配置...")
+  (message "🔧 Emacs version mismatch, loading minimal configuration...")
   (require 'core-config)
-  (message "✓ 最小配置加载完成"))
+  (message "✓ Minimal configuration loaded successfully"))
 
 ;; =============================================================================
 ;; 主配置入口

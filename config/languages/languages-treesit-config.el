@@ -17,7 +17,7 @@
   (dolist (lang-dir '("cpp" "java" "python" "javascript"))
     (add-to-list 'load-path (expand-file-name lang-dir languages-dir))))
 
-(message "🌟 加载 Tree-sitter 语言配置...")
+(message "🌟 Loading Tree-sitter language configuration...")
 
 (require 'cpp-treesit-config)
 (require 'python-treesit-config)
@@ -25,7 +25,7 @@
 (require 'javascript-treesit-config)
 (require 'cmake-config)
 
-(message "✓ Tree-sitter 语言配置加载完成")
+(message "✓ Tree-sitter language configuration loaded successfully")
 
 (provide 'languages-treesit-config)
 

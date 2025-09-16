@@ -69,13 +69,13 @@
    ((executable-find "black")
     (call-process "black" nil nil nil "--quiet" (buffer-file-name))
     (revert-buffer t t t)
-    (message "使用 black 格式化完成"))
+    (message "Formatting completed with black"))
    ((executable-find "autopep8")
     (call-process "autopep8" nil nil nil "--in-place" "--aggressive" 
                   (buffer-file-name))
     (revert-buffer t t t)
-    (message "使用 autopep8 格式化完成"))
-   (t (message "请安装 black 或 autopep8 进行代码格式化"))))
+    (message "Formatting completed with autopep8"))
+   (t (message "Please install black or autopep8 for code formatting"))))
 
 ;; 保存时自动格式化（可选）
 (defun my-python-format-on-save ()
@@ -116,14 +116,14 @@
   (interactive)
   (if (executable-find "pytest")
       (compile "pytest -v")
-    (message "请安装 pytest")))
+    (message "Please install pytest")))
 
 (defun my-python-run-current-test ()
   "运行当前文件的测试"
   (interactive)
   (if (executable-find "pytest")
       (compile (format "pytest -v %s" (buffer-file-name)))
-    (message "请安装 pytest")))
+    (message "Please install pytest")))
 
 ;; Python 调试支持
 (defun my-python-debug-current-file ()
@@ -171,7 +171,7 @@
   (interactive)
   (if (file-exists-p "requirements.txt")
       (compile "pip install -r requirements.txt")
-    (message "当前目录中没有找到 requirements.txt")))
+    (message "No requirements.txt found in current directory")))
 
 ;; Poetry 集成（如果使用 Poetry）
 (defun my-python-poetry-install ()
@@ -179,7 +179,7 @@
   (interactive)
   (if (file-exists-p "pyproject.toml")
       (compile "poetry install")
-    (message "当前目录中没有找到 pyproject.toml")))
+    (message "No pyproject.toml found in current directory")))
 
 ;; =============================================================================
 ;; Python REPL 增强
@@ -258,7 +258,7 @@
       (insert "# Python 依赖列表\n"))
     (with-temp-file (concat project-name "/.gitignore")
       (insert "__pycache__/\n*.pyc\n*.pyo\n*.pyd\n.Python\nvenv/\n.env\n"))
-    (message "Python 项目结构创建完成: %s" project-name)))
+    (message "Python project structure created: %s" project-name)))
 
 (provide 'python-treesit-config)
 

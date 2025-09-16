@@ -24,3 +24,5 @@ eln-cache
 places
 package-quickstart.el
 package-quickstart.elc
+
+undo
