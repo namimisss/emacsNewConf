@@ -1,4 +1,5 @@
-;;; base-enhancements.el --- config/core/base-enhancements.el现代化编辑增强功能  -*- lexical-binding: t; -*-
+;;; base-enhancements.el --- config/core/base-enhancements.el现代化编辑增强功能
+  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024
 
@@ -124,12 +125,13 @@
   :ensure t
   :bind ("C-x o" . ace-window))
 
-(use-package recentf
-  :ensure t
-  :config
-  (recentf-mode 1)
-  (setq recentf-max-saved-items 50)
-  (setq recentf-max-menu-items 15))
+;; recentf disabled for performance optimization
+;; (use-package recentf
+;;   :ensure t
+;;   :config
+;;   (recentf-mode 1)
+;;   (setq recentf-max-saved-items 50)
+;;   (setq recentf-max-menu-items 15))
 
 (use-package ag
   :ensure t)

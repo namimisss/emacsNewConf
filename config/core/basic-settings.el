@@ -149,9 +149,9 @@
 ;; 内置模式配置
 ;; =============================================================================
 
-;; recentf - 最近文件
-(setq recentf-max-saved-items 50)             ; 最多保存50个
-(setq recentf-max-menu-items 15)              ; 菜单最多显示15个
+;; recentf - 最近文件 (disabled for performance)
+;; (setq recentf-max-saved-items 50)             ; 最多保存50个
+;; (setq recentf-max-menu-items 15)              ; 菜单最多显示15个
 
 ;; 自动刷新文件
 (global-auto-revert-mode 1)                   ; 全局自动刷新

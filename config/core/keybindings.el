@@ -23,7 +23,7 @@
 
 ;; 文件操作
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)    ; 查找文件 (如果有ivy)
-(global-set-key (kbd "C-x C-r") 'recentf-open-files)   ; 最近文件
+;; (global-set-key (kbd "C-x C-r") 'recentf-open-files)   ; 最近文件 (disabled)
 (global-set-key (kbd "C-x C-b") 'ibuffer)              ; 缓冲区列表
 
 ;; 窗口操作
