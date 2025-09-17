@@ -107,10 +107,11 @@
 ;; (use-package crm-custom
 ;;   :ensure t)
 
-(provide 'completion-ivy)
-
 (use-package marginalia
- :init
- (marginalia-mode))
+  :ensure t
+  :init
+  (marginalia-mode))
+
+(provide 'completion-ivy)
 
 ;;; completion-ivy.el ends here
