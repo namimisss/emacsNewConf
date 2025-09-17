@@ -1,4 +1,4 @@
-;;; ui-themes.el ---   -*- lexical-binding: t; -*-
+;;; ui-themes.el --- 主题配置  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024
 

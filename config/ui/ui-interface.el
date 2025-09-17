@@ -1,4 +1,4 @@
-;;; ui-interface.el ---   -*- lexical-binding: t; -*-
+;;; ui-interface.el --- 用户界面配置  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024
 

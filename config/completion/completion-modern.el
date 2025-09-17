@@ -1,4 +1,4 @@
-;;; completion-modern.el ---   -*- lexical-binding: t; -*-
+;;; completion-modern.el --- 现代化补全配置  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024
 

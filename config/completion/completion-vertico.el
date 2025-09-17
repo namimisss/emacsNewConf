@@ -1,4 +1,4 @@
-;;; completion-vertico.el ---   -*- lexical-binding: t; -*-
+;;; completion-vertico.el --- Vertico补全配置  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024
 

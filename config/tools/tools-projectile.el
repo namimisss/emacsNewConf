@@ -1,4 +1,4 @@
-;;; tools-projectile.el ---   -*- lexical-binding: t; -*-
+;;; tools-projectile.el --- Projectile项目管理配置  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024
 

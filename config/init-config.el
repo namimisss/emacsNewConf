@@ -35,18 +35,15 @@
         nil))))
 
 (defun fish-check-treesitter-support ()
-  "检查 Tree-sitter 支持状态：检查功能可用性和语法文件"
-  (let ((treesit-dir (expand-file-name "tree-sitter" user-emacs-directory)))
-    (if (and (fboundp 'treesit-available-p) 
-             (treesit-available-p)
-             (file-directory-p treesit-dir)
-             (> (length (directory-files treesit-dir nil "\\.so$")) 0))
-        (progn
-          (message "✓ Tree-sitter available with grammar files detected")
-          t)
+  "检查 Tree-sitter 支持状态：检查功能可用性（自动安装方案）"
+  (if (and (fboundp 'treesit-available-p) 
+           (treesit-available-p))
       (progn
-        (message "○ Tree-sitter unavailable or no grammar files, using traditional config")
-        nil))))
+        (message "✓ Tree-sitter available - using auto-install configuration")
+        t)
+    (progn
+      (message "○ Tree-sitter unavailable, using traditional config")
+      nil)))
 
 ;; =============================================================================
 ;; 配置路径设置

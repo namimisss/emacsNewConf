@@ -1,4 +1,4 @@
-;;; java-config.el ---   -*- lexical-binding: t; -*-
+;;; java-config.el --- Java语言配置  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024
 

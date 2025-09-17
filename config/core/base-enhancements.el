@@ -1,5 +1,4 @@
-;;; base-enhancements.el --- config/core/base-enhancements.el现代化编辑增强功能
-  -*- lexical-binding: t; -*-
+;;; base-enhancements.el --- config/core/base-enhancements.el现代化编辑增强功能  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024
 

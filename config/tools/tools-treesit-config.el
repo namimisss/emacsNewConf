@@ -15,8 +15,8 @@
 (message "🔧 Loading Tree-sitter tools configuration...")
 
 ;; Tree-sitter 工具配置
-;; 1. Tree-sitter 核心配置
-(require 'tools-treesit)
+;; 1. Tree-sitter 自动安装配置（方案1 - 避免ABI兼容性问题）
+(require 'tools-treesit-auto)
 
 ;; 2. Flycheck语法检查 (Tree-sitter 增强)
 (require 'tools-flycheck)
