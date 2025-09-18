@@ -42,7 +42,7 @@
 	lsp-enable-file-watchers nil
 	read-process-output-max (* 1024 1024)  ; 1 mb
 	lsp-completion-provider :capf
-	lsp-idle-delay 0.500
+	lsp-idle-delay 1.0                   ; 增加延迟，减少频繁触发
 	;; 禁用lsp内置的flycheck，使用外部flycheck
 	lsp-prefer-flymake nil
 	lsp-diagnostics-provider :flycheck

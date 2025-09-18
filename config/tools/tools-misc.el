@@ -9,32 +9,58 @@
 ;;; Commentary:
 
 ;; 这个文件包含各种开发工具的配置，包括：
-;; - 代码格式化工具 (format-all)
+;; - 代码格式化工具 (apheleia - 替代 format-all)
 ;; - 拼写检查工具 (flyspell)
 ;; - 快速运行工具 (quickrun)
 ;; - Hydra 快捷键管理
 
 ;;; Code:
 
-(use-package format-all
- :ensure t
- :config
- (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
- ;; 定义一个函数来在特定模式下添加保存时格式化
- (defun my-format-on-save ()
-   "在支持的编程模式下保存时自动格式化（排除 JavaScript，由专门的 prettier 处理）"
-   (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'python-mode)
-     (format-all-buffer)))
- 
- ;; 全局添加保存时格式化钩子
- (add-hook 'before-save-hook 'my-format-on-save)
- 
- ;; 在各种编程模式下启用格式化（排除 JavaScript 相关模式）
- (add-hook 'c-mode-hook 'format-all-mode)
- (add-hook 'c++-mode-hook 'format-all-mode)
- (add-hook 'java-mode-hook 'format-all-mode)
- (add-hook 'protobuf-mode-hook 'format-all-mode)
- (add-hook 'python-mode-hook 'format-all-mode))
+;; =============================================================================
+;; 代码格式化配置 - 使用 Apheleia (更好的 format-all 替代)
+;; =============================================================================
+
+(use-package apheleia
+  :ensure t
+  :config
+  ;; 启用全局异步格式化模式
+  (apheleia-global-mode +1)
+  
+  ;; 自定义格式化工具配置
+  (setf (alist-get 'python-mode apheleia-mode-alist) '(black))
+  (setf (alist-get 'python-ts-mode apheleia-mode-alist) '(black))
+  (setf (alist-get 'c-mode apheleia-mode-alist) '(clang-format))
+  (setf (alist-get 'c++-mode apheleia-mode-alist) '(clang-format))
+  (setf (alist-get 'c-ts-mode apheleia-mode-alist) '(clang-format))
+  (setf (alist-get 'c++-ts-mode apheleia-mode-alist) '(clang-format))
+  (setf (alist-get 'java-mode apheleia-mode-alist) '(google-java-format))
+  (setf (alist-get 'java-ts-mode apheleia-mode-alist) '(google-java-format))
+  
+  ;; JavaScript/TypeScript 使用 prettier
+  (setf (alist-get 'js-mode apheleia-mode-alist) '(prettier))
+  (setf (alist-get 'js2-mode apheleia-mode-alist) '(prettier))
+  (setf (alist-get 'rjsx-mode apheleia-mode-alist) '(prettier))
+  (setf (alist-get 'typescript-mode apheleia-mode-alist) '(prettier))
+  
+  ;; Web-mode (HTML, Vue, TSX) 使用 prettier
+  (setf (alist-get 'web-mode apheleia-mode-alist) '(prettier))
+  
+  ;; Tree-sitter 模式支持
+  (setf (alist-get 'js-ts-mode apheleia-mode-alist) '(prettier))
+  (setf (alist-get 'typescript-ts-mode apheleia-mode-alist) '(prettier))
+  (setf (alist-get 'tsx-ts-mode apheleia-mode-alist) '(prettier))
+  (setf (alist-get 'json-ts-mode apheleia-mode-alist) '(prettier))
+  
+  ;; JSON 格式化支持
+  (setf (alist-get 'json-mode apheleia-mode-alist) '(prettier))
+  
+  ;; CSS 格式化支持
+  (setf (alist-get 'css-mode apheleia-mode-alist) '(prettier))
+  (setf (alist-get 'css-ts-mode apheleia-mode-alist) '(prettier))
+  
+  ;; 启用保存时自动格式化（默认行为）
+  (setq apheleia-format-on-save t))
+
 
 (use-package flyspell-correct
   :ensure t

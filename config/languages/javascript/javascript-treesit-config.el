@@ -93,11 +93,12 @@
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2
-        web-mode-enable-auto-pairing t
-        web-mode-enable-css-colorization t
-        web-mode-enable-current-element-highlight t
-        web-mode-enable-auto-closing t
-        web-mode-enable-auto-quoting t)
+        ;; 性能优化：减少实时处理
+        web-mode-enable-auto-pairing nil        ; 禁用实时括号配对
+        web-mode-enable-css-colorization nil    ; 禁用实时颜色显示
+        web-mode-enable-current-element-highlight nil  ; 禁用实时元素高亮
+        web-mode-enable-auto-closing nil        ; 禁用实时标签关闭
+        web-mode-enable-auto-quoting nil)       ; 禁用实时引号处理
   
   ;; 文件类型特定配置
   (add-to-list 'web-mode-content-types-alist '("vue" . "\\.vue\\'"))
@@ -137,73 +138,19 @@
 ;; 代码格式化和 Lint (Tree-sitter 兼容)
 ;; =============================================================================
 
-;; Prettier - JavaScript 代码格式化 (Tree-sitter 兼容)
-(use-package prettier-js
-  :ensure t
-  :hook ((js-ts-mode . prettier-js-mode)        ; Tree-sitter JS
-         (typescript-ts-mode . prettier-js-mode) ; Tree-sitter TS
-         (tsx-ts-mode . prettier-js-mode)        ; Tree-sitter TSX
-         (json-ts-mode . prettier-js-mode)       ; Tree-sitter JSON
-         (web-mode . prettier-js-mode))          ; Vue/HTML
-  :config
-  (setq prettier-js-args '())
-  
-  ;; 保存时自动格式化
-  (defun my-js-format-on-save ()
-    "JavaScript/React/Vue 文件保存时自动使用 Prettier 格式化 (Tree-sitter 兼容)"
-    (when (and (derived-mode-p 'js-ts-mode 'typescript-ts-mode 'tsx-ts-mode 
-                               'json-ts-mode 'web-mode)
-               (executable-find "prettier"))
-      (prettier-js)))
-  
-  (add-hook 'before-save-hook 'my-js-format-on-save))
+;; Prettier 格式化已由 Apheleia 统一处理 (支持所有模式包括 Tree-sitter)
+;; 移除重复配置以避免冲突和性能问题
 
-;; ESLint 集成配置
-;; 注意：flycheck 已在 tools-flycheck.el 中全局配置，这里只添加 JavaScript 特定设置
+;; =============================================================================
+;; ESLint 集成配置 (统一配置)
+;; =============================================================================
 
-;; JavaScript 特定的 flycheck 配置
-(with-eval-after-load 'flycheck
-  ;; 禁用一些不需要的 JavaScript 检查器
-  (setq-default flycheck-disabled-checkers
-                (append flycheck-disabled-checkers
-                        '(javascript-jshint json-jsonlist)))
-  
-  ;; 优先使用项目本地的 ESLint
-  (defun my-use-eslint-from-node-modules ()
-    "使用项目本地的 ESLint"
-    (let* ((root (locate-dominating-file
-                  (or (buffer-file-name) default-directory)
-                  "node_modules"))
-           (eslint (and root
-                        (expand-file-name "node_modules/.bin/eslint"
-                                          root))))
-      (when (and eslint (file-executable-p eslint))
-        (setq-local flycheck-javascript-eslint-executable eslint))))
-  
-  (add-hook 'flycheck-mode-hook #'my-use-eslint-from-node-modules))
+;; 加载统一的 ESLint 配置（与传统版本共享）
+(require 'eslint-config)
 
-;; ESLint 自动修复功能
-(defun my-eslint-fix-buffer ()
-  "使用 ESLint 自动修复当前缓冲区"
-  (interactive)
-  (if (executable-find "eslint")
-      (progn
-        (call-process "eslint" nil nil nil "--fix" (buffer-file-name))
-        (revert-buffer t t t))
-    (message "ESLint not found")))
-
-;; 自动修复和格式化组合
-(defun my-js-format-and-lint ()
-  "格式化并修复 JavaScript 代码 (Tree-sitter 兼容)"
-  (interactive)
-  (when (derived-mode-p 'js-ts-mode 'typescript-ts-mode 'tsx-ts-mode 
-                        'json-ts-mode 'web-mode)
-    (if (executable-find "eslint")
-        (my-eslint-fix-buffer)
-      (prettier-js))))
-
-;; 绑定组合命令
-(global-set-key (kbd "C-c f j") 'my-js-format-and-lint)
+;; ESLint 错误检测和显示完全由 Flycheck 处理
+;; 手动修复功能已移除，专注于通过 Flycheck 显示错误
+;; 用户可以根据 Flycheck 提示手动修复代码问题
 
 ;; =============================================================================
 ;; Node.js 支持 (Tree-sitter 兼容)
